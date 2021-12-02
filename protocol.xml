@@ -1,0 +1,363 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+****************************************************************************
+*  Copyright (c) 2021,  Skyline Communications NV  All Rights Reserved.    *
+****************************************************************************
+
+By using this driver, you expressly agree with the usage terms and
+conditions set out below.
+This driver and all related materials are protected by copyrights and
+other intellectual property rights that exclusively belong
+to Skyline Communications.
+
+A user license granted for this driver is strictly for personal use only.
+This driver may not be used in any way by anyone without the prior
+written consent of Skyline Communications. Any sublicensing of this
+driver is forbidden.
+
+Any modifications to this driver by the user are only allowed for
+personal use and within the intended purpose of the driver,
+and will remain the sole responsibility of the user.
+Skyline Communications will not be responsible for any damages or
+malfunctions whatsoever of the driver resulting from a modification
+or adaptation by the user.
+
+The content of this driver is confidential information.
+The user hereby agrees to keep this confidential information strictly
+secret and confidential and not to disclose or reveal it, in whole
+or in part, directly or indirectly to any person, entity, organization
+or administration without the prior written consent of
+Skyline Communications.
+
+Any inquiries can be addressed to:
+
+	Skyline Communications NV
+	Ambachtenstraat 33
+	B-8870 Izegem
+	Belgium
+	Tel.	: +32 51 31 35 69
+	Fax.	: +32 51 31 01 29
+	E-mail	: info@skyline.be
+	Web		: www.skyline.be
+	Contact	: Ben Vandenberghe
+
+-->
+
+<Protocol xmlns="http://www.skyline.be/protocol">
+	<Name>SLC SDF Rates - Custom</Name>
+	<Description>SLC SDF Rates - Custom DataMiner driver</Description>
+	<Version>1.0.0.1</Version>
+	<IntegrationID>DMS-DRV-0000</IntegrationID>
+	<Provider>Skyline Communications</Provider>
+	<Vendor>Skyline</Vendor>
+	<VendorOID>1.3.6.1.4.1.8813.2.48</VendorOID>
+	<DeviceOID>998</DeviceOID>
+	<ElementType>Training Example</ElementType>
+	<Type relativeTimers="true">virtual</Type>
+	<Display defaultPage="General" pageOrder="General" wideColumnPages="General"/>
+	<SNMP includepages="true">auto</SNMP>
+
+	<Compliancies>
+		<CassandraReady>true</CassandraReady>
+	</Compliancies>
+
+	<Params>
+		<Param id="2">
+			<Name>afterStartup</Name>
+			<Description>After Startup</Description>
+			<Type>dummy</Type>
+		</Param>
+		
+		<Param id="1000">
+			<Name>streams</Name>
+			<Description>Streams</Description>
+			<Type>array</Type>
+			<ArrayOptions index="0">
+				<ColumnOption idx="0" pid="1001" type="retrieved" options=""/>
+				<ColumnOption idx="1" pid="1002" type="retrieved" options=";save" />
+				<ColumnOption idx="2" pid="1003" type="retrieved" options=";save;enableHeaderAvg;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="3" pid="1004" type="retrieved" options=";save;enableHeaderAvg;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="4" pid="1005" type="retrieved" options=";save" />
+			</ArrayOptions>
+			<Information>
+				<Subtext>Streams Table</Subtext>
+			</Information>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>General</Page>
+						<Column>0</Column>
+						<Row>0</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<Measurement>
+				<Type options="tab=columns:1001|0-1002|1-1003|2-1004|3-1005|4,width:100-100-103-100-100,sort:STRING-STRING-INT-INT-STRING,lines:25,filter:true">table</Type>
+			</Measurement>
+		</Param>
+		<Param id="1001" trending="false">
+			<Name>streamsIndex</Name>
+			<Description>Index [IDX] (Streams)</Description>
+			<Type>read</Type>
+			<Information>
+				<Text>Index</Text>
+				<Subtext>This is the key used internally by DataMiner to identify the table entries.</Subtext>
+				<Includes>
+					<Include>range</Include>
+					<Include>steps</Include>
+					<Include>time</Include>
+					<Include>units</Include>
+				</Includes>
+			</Information>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		<Param id="1002" trending="false">
+			<Name>streamsDrescription</Name>
+			<Description>Description (Streams)</Description>
+			<Type>read</Type>
+			<Information>
+				<Text>Description</Text>
+				<Subtext>Description</Subtext>
+				<Includes>
+					<Include>range</Include>
+					<Include>steps</Include>
+					<Include>time</Include>
+					<Include>units</Include>
+				</Includes>
+			</Information>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<!-- SuppressValidator 2.5.1 Not Applicable -->
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
+			<!-- /SuppressValidator 2.5.1 -->
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		<Param id="1003" trending="true">
+			<Name>streamsOctetsCounter</Name>
+			<Description>Octets Counter (Streams)</Description>
+			<Type>read</Type>
+			<Information>
+				<Text>Counter</Text>
+				<Subtext>Octets Counter</Subtext>
+				<Includes>
+					<Include>range</Include>
+					<Include>steps</Include>
+					<Include>units</Include>
+					<Include>time</Include>
+				</Includes>
+			</Information>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<!-- SuppressValidator 2.5.1 Not Applicable -->
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
+			<!-- /SuppressValidator 2.5.1 -->
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Units>Octets</Units>
+				<Range>
+					<Low>0</Low>
+				</Range>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="1004" trending="true">
+			<Name>streamsBitRate</Name>
+			<Description>Bit Rate (Streams)</Description>
+			<Type>read</Type>
+			<Information>
+				<Text>Bit Rate</Text>
+				<Subtext>Bit rate</Subtext>
+				<Includes>
+					<Include>range</Include>
+					<Include>steps</Include>
+					<Include>time</Include>
+					<Include>units</Include>
+				</Includes>
+			</Information>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<!-- SuppressValidator 2.5.1 Not Applicable -->
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
+			<!-- /SuppressValidator 2.5.1 -->
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Decimals>3</Decimals>
+				<Range>
+					<Low>0</Low>
+				</Range>
+				<Units>bps</Units>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="1005" trending="false">
+			<Name>streamsBitRateData</Name>
+			<Description>Bit Rate Data (Streams)</Description>
+			<Type>read</Type>
+			<Information>
+				<Text>Data</Text>
+				<Subtext>
+					<![CDATA[Bit Rate Data]]>
+				</Subtext>
+				<Includes>
+					<Include>range</Include>
+					<Include>time</Include>
+					<Include>units</Include>
+					<Include>steps</Include>
+				</Includes>
+			</Information>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		
+		
+		
+		
+	</Params>
+
+	<QActions>
+		<QAction id="1" name="Precompiled Code" encoding="csharp" options="precompile">
+		</QAction>
+		<QAction id="2" name="After Startup" encoding="csharp" triggers="2">
+		</QAction>
+	</QActions>
+
+	<Groups>
+		<Group id="2">
+			<Name>After Startup</Name>
+			<Description>After Startup</Description>
+			<Type>poll action</Type>
+			<Content>
+				<Action>2</Action>
+			</Content>
+		</Group>
+	</Groups>
+
+	<Triggers>
+		<Trigger id="1">
+			<Name>After Startup</Name>
+			<On>protocol</On>
+			<Time>after startup</Time>
+			<Type>action</Type>
+			<Content>
+				<Id>1</Id>
+			</Content>
+		</Trigger>
+	</Triggers>
+
+	<Actions>
+		<Action id="1">
+			<Name>After Startup Group</Name>
+			<On id="2">group</On>
+			<Type>execute next</Type>
+		</Action>
+		<Action id="2">
+			<Name>After Startup QAction</Name>
+			<On id="2">parameter</On>
+			<Type>run actions</Type>
+		</Action>
+	</Actions>
+
+	<Timers>
+		<Timer id="1">
+			<Name>Fast Timer (10s)</Name>
+			<Time initial="true">10000</Time>
+			<Interval>75</Interval>
+			<Content>
+			</Content>
+		</Timer>
+		<Timer id="2">
+			<Name>Medium Timer (1m)</Name>
+			<Time initial="true" dataDisplay="30000">60000</Time>
+			<Interval>75</Interval>
+			<Content>
+			</Content>
+		</Timer>
+		<Timer id="3">
+			<Name>Slow Timer (1h)</Name>
+			<Time initial="true">3600000</Time>
+			<Interval>75</Interval>
+			<Content>
+			</Content>
+		</Timer>
+	</Timers>
+
+	<PortSettings>
+	</PortSettings>
+
+	<VersionHistory>
+		<Branches>
+			<Branch id="1">
+				<Comment>Main Branch</Comment>
+				<SystemVersions>
+					<SystemVersion id="0">
+						<MajorVersions>
+							<MajorVersion id="0">
+								<MinorVersions>
+									<MinorVersion id="1">
+										<Date>2021-12-02</Date>
+										<Provider>
+											<Author>PAL</Author>
+											<Company>Skyline Communications</Company>
+										</Provider>
+										<Changes>
+											<NewFeature>Initial version</NewFeature>
+										</Changes>
+										<References>
+											<TaskId>137922</TaskId>
+										</References>
+									</MinorVersion>
+								</MinorVersions>
+							</MajorVersion>
+						</MajorVersions>
+					</SystemVersion>
+				</SystemVersions>
+			</Branch>
+		</Branches>
+	</VersionHistory>
+
+</Protocol>
