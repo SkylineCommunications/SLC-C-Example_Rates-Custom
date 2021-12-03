@@ -93,6 +93,7 @@ public interface SLProtocolExt : SLProtocol
 	/// <summary>PID: 1000</summary>
 	StreamsQActionTable streams { get; set; }
 	object Afterstartup_dummy { get; set; }
+	object Dummyforqa3_dummy { get; set; }
 	object Streamsindex_1001 { get; set; }
 	object Streamsindex { get; set; }
 	object Streamsdrescription_1002 { get; set; }
@@ -111,6 +112,8 @@ public class ConcreteSLProtocolExt : ConcreteSLProtocol, SLProtocolExt
 	public StreamsQActionTable streams { get; set; }
 	/// <summary>PID: 2  | Type: dummy</summary>
 	public System.Object Afterstartup_dummy {get { return GetParameter(2); }set { SetParameter(2, value); }}
+	/// <summary>PID: 3  | Type: dummy</summary>
+	public System.Object Dummyforqa3_dummy {get { return GetParameter(3); }set { SetParameter(3, value); }}
 	/// <summary>PID: 1001  | Type: read</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public System.Object Streamsindex_1001 {get { return GetParameter(1001); }set { SetParameter(1001, value); }}
@@ -126,10 +129,10 @@ public class ConcreteSLProtocolExt : ConcreteSLProtocol, SLProtocolExt
 	public System.Object Streamsoctetscounter_1003 {get { return GetParameter(1003); }set { SetParameter(1003, value); }}
 	/// <summary>PID: 1003  | Type: read</summary>
 	public System.Object Streamsoctetscounter {get { return GetParameter(1003); }set { SetParameter(1003, value); }}
-	/// <summary>PID: 1004  | Type: read</summary>
+	/// <summary>PID: 1004  | Type: read | EXCEPTIONS: N/A = -1</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public System.Object Streamsbitrate_1004 {get { return GetParameter(1004); }set { SetParameter(1004, value); }}
-	/// <summary>PID: 1004  | Type: read</summary>
+	/// <summary>PID: 1004  | Type: read | EXCEPTIONS: N/A = -1</summary>
 	public System.Object Streamsbitrate {get { return GetParameter(1004); }set { SetParameter(1004, value); }}
 	/// <summary>PID: 1005  | Type: read</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]

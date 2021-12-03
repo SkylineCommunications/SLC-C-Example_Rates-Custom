@@ -68,7 +68,13 @@ Any inquiries can be addressed to:
 			<Description>After Startup</Description>
 			<Type>dummy</Type>
 		</Param>
+		<Param id="3">
+			<Name>dummyForQA3</Name>
+			<Description>Dummy QA3</Description>
+			<Type>dummy</Type>
+		</Param>
 		
+		<!-- Streams Table -->
 		<Param id="1000">
 			<Name>streams</Name>
 			<Description>Streams</Description>
@@ -94,7 +100,7 @@ Any inquiries can be addressed to:
 				</Positions>
 			</Display>
 			<Measurement>
-				<Type options="tab=columns:1001|0-1002|1-1003|2-1004|3-1005|4,width:100-100-103-100-100,sort:STRING-STRING-INT-INT-STRING,lines:25,filter:true">table</Type>
+				<Type options="tab=columns:1001|0-1002|1-1003|2-1004|3-1005|4,width:100-150-110-110-200,sort:STRING-STRING-INT-INT-STRING,lines:25,filter:true">table</Type>
 			</Measurement>
 		</Param>
 		<Param id="1001" trending="false">
@@ -207,6 +213,12 @@ Any inquiries can be addressed to:
 				<RawType>numeric text</RawType>
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
+				<Exceptions>
+					<Exception id="1" value="-1">
+						<Display state="disabled">N/A</Display>
+						<Value>-1</Value>
+					</Exception>
+				</Exceptions>
 			</Interprete>
 			<!-- SuppressValidator 2.5.1 Not Applicable -->
 			<Alarm>
@@ -254,15 +266,14 @@ Any inquiries can be addressed to:
 			</Measurement>
 		</Param>
 		
-		
-		
-		
 	</Params>
 
 	<QActions>
 		<QAction id="1" name="Precompiled Code" encoding="csharp" options="precompile">
 		</QAction>
 		<QAction id="2" name="After Startup" encoding="csharp" triggers="2">
+		</QAction>
+		<QAction id="3" name="Fill Streams Table" encoding="csharp" triggers="3">
 		</QAction>
 	</QActions>
 
@@ -273,6 +284,14 @@ Any inquiries can be addressed to:
 			<Type>poll action</Type>
 			<Content>
 				<Action>2</Action>
+			</Content>
+		</Group>
+		<Group id="3">
+			<Name>Fill Streams</Name>
+			<Description>Fill Streams</Description>
+			<Type>poll action</Type>
+			<Content>
+				<Action>3</Action>
 			</Content>
 		</Group>
 	</Groups>
@@ -300,28 +319,20 @@ Any inquiries can be addressed to:
 			<On id="2">parameter</On>
 			<Type>run actions</Type>
 		</Action>
+		<Action id="3">
+			<Name>Run QA3</Name>
+			<On id="3">parameter</On>
+			<Type>run actions</Type>
+		</Action>
 	</Actions>
 
 	<Timers>
 		<Timer id="1">
-			<Name>Fast Timer (10s)</Name>
-			<Time initial="true">10000</Time>
-			<Interval>75</Interval>
-			<Content>
-			</Content>
-		</Timer>
-		<Timer id="2">
 			<Name>Medium Timer (1m)</Name>
-			<Time initial="true" dataDisplay="30000">60000</Time>
+			<Time initial="true">60000</Time>
 			<Interval>75</Interval>
 			<Content>
-			</Content>
-		</Timer>
-		<Timer id="3">
-			<Name>Slow Timer (1h)</Name>
-			<Time initial="true">3600000</Time>
-			<Interval>75</Interval>
-			<Content>
+				<Group>3</Group>
 			</Content>
 		</Timer>
 	</Timers>
