@@ -70,10 +70,10 @@ Any inquiries can be addressed to:
 		</Param>
 		<Param id="3">
 			<Name>dummyForQA3</Name>
-			<Description>Dummy QA3</Description>
+			<Description>Dummy For QA3</Description>
 			<Type>dummy</Type>
 		</Param>
-		
+
 		<!-- Streams Table -->
 		<Param id="1000">
 			<Name>streams</Name>
@@ -82,8 +82,8 @@ Any inquiries can be addressed to:
 			<ArrayOptions index="0">
 				<ColumnOption idx="0" pid="1001" type="retrieved" options=""/>
 				<ColumnOption idx="1" pid="1002" type="retrieved" options=";save" />
-				<ColumnOption idx="2" pid="1003" type="retrieved" options=";save;enableHeaderAvg;enableHistogram;enableHeatmap" />
-				<ColumnOption idx="3" pid="1004" type="retrieved" options=";save;enableHeaderAvg;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="2" pid="1003" type="retrieved" options=";save;disableHeaderSum;disableHistogram;disableHeatmap" />
+				<ColumnOption idx="3" pid="1004" type="retrieved" options=";save;disableHeaderSum;disableHistogram;disableHeatmap" />
 				<ColumnOption idx="4" pid="1005" type="retrieved" options=";save" />
 			</ArrayOptions>
 			<Information>
@@ -100,7 +100,7 @@ Any inquiries can be addressed to:
 				</Positions>
 			</Display>
 			<Measurement>
-				<Type options="tab=columns:1001|0-1002|1-1003|2-1004|3-1005|4,width:100-150-110-110-200,sort:STRING-STRING-INT-INT-STRING,lines:25,filter:true">table</Type>
+				<Type options="tab=columns:1001|0-1002|1-1003|2-1004|3-1005|4,width:97-250-110-110-300,sort:STRING-STRING-INT-INT-STRING,lines:25,filter:true">table</Type>
 			</Measurement>
 		</Param>
 		<Param id="1001" trending="false">
@@ -108,14 +108,7 @@ Any inquiries can be addressed to:
 			<Description>Index [IDX] (Streams)</Description>
 			<Type>read</Type>
 			<Information>
-				<Text>Index</Text>
 				<Subtext>This is the key used internally by DataMiner to identify the table entries.</Subtext>
-				<Includes>
-					<Include>range</Include>
-					<Include>steps</Include>
-					<Include>time</Include>
-					<Include>units</Include>
-				</Includes>
 			</Information>
 			<Interprete>
 				<RawType>other</RawType>
@@ -134,14 +127,7 @@ Any inquiries can be addressed to:
 			<Description>Description (Streams)</Description>
 			<Type>read</Type>
 			<Information>
-				<Text>Description</Text>
-				<Subtext>Description</Subtext>
-				<Includes>
-					<Include>range</Include>
-					<Include>steps</Include>
-					<Include>time</Include>
-					<Include>units</Include>
-				</Includes>
+				<Subtext>A textual description for the stream.</Subtext>
 			</Information>
 			<Interprete>
 				<RawType>other</RawType>
@@ -165,14 +151,7 @@ Any inquiries can be addressed to:
 			<Description>Octets Counter (Streams)</Description>
 			<Type>read</Type>
 			<Information>
-				<Text>Counter</Text>
-				<Subtext>Octets Counter</Subtext>
-				<Includes>
-					<Include>range</Include>
-					<Include>steps</Include>
-					<Include>units</Include>
-					<Include>time</Include>
-				</Includes>
+				<Subtext>The octets counter for the stream.</Subtext>
 			</Information>
 			<Interprete>
 				<RawType>numeric text</RawType>
@@ -200,14 +179,7 @@ Any inquiries can be addressed to:
 			<Description>Bit Rate (Streams)</Description>
 			<Type>read</Type>
 			<Information>
-				<Text>Bit Rate</Text>
-				<Subtext>Bit rate</Subtext>
-				<Includes>
-					<Include>range</Include>
-					<Include>steps</Include>
-					<Include>time</Include>
-					<Include>units</Include>
-				</Includes>
+				<Subtext>The calculated bit rate based on the octets counter for the stream.</Subtext>
 			</Information>
 			<Interprete>
 				<RawType>numeric text</RawType>
@@ -242,16 +214,7 @@ Any inquiries can be addressed to:
 			<Description>Bit Rate Data (Streams)</Description>
 			<Type>read</Type>
 			<Information>
-				<Text>Data</Text>
-				<Subtext>
-					<![CDATA[Bit Rate Data]]>
-				</Subtext>
-				<Includes>
-					<Include>range</Include>
-					<Include>time</Include>
-					<Include>units</Include>
-					<Include>steps</Include>
-				</Includes>
+				<Subtext>Used as a buffer parameter containing data necessary for bit rate calculations.</Subtext>
 			</Information>
 			<Interprete>
 				<RawType>other</RawType>
@@ -265,7 +228,6 @@ Any inquiries can be addressed to:
 				<Type>string</Type>
 			</Measurement>
 		</Param>
-		
 	</Params>
 
 	<QActions>
@@ -273,6 +235,7 @@ Any inquiries can be addressed to:
 		</QAction>
 		<QAction id="2" name="After Startup" encoding="csharp" triggers="2">
 		</QAction>
+
 		<QAction id="3" name="Fill Streams Table" encoding="csharp" triggers="3">
 		</QAction>
 	</QActions>
@@ -336,9 +299,6 @@ Any inquiries can be addressed to:
 			</Content>
 		</Timer>
 	</Timers>
-
-	<PortSettings>
-	</PortSettings>
 
 	<VersionHistory>
 		<Branches>
