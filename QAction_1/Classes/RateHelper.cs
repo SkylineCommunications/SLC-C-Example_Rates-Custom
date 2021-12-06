@@ -64,7 +64,6 @@
 
 			// Calculate
 			double rate;
-
 			if (oldCounterPos > -1)
 			{
 				rate = (newCounter - counters[oldCounterPos].Counter) / (time - counters[oldCounterPos].Time).TotalMinutes;

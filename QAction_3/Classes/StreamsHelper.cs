@@ -68,8 +68,8 @@
 					new uint[] { Parameter.Streams.Idx.streamsindex_1001, Parameter.Streams.Idx.streamsoctetscounter_1003, Parameter.Streams.Idx.streamsbitratedata_1005 });
 
 				Keys = (object[])tableData[0];
-				InOctetsBuffer = (object[])tableData[2];
 				InOctets = FillOctets((object[])tableData[1]);
+				InOctetsBuffer = (object[])tableData[2];
 			}
 
 			private static object[] FillOctets(object[] previous)
@@ -77,14 +77,14 @@
 				var predifined = new object[] { 48, 24, 96, 128, 246, 8 };
 
 				Random random = new Random();
-				var randGrow = Convert.ToUInt64(random.Next(24));
-				var randPredifined = Convert.ToUInt64(predifined[random.Next(predifined.Length - 1)]);
+				var randomGrow = Convert.ToUInt64(random.Next(24));
+				var randomPredifined = Convert.ToUInt64(predifined[random.Next(predifined.Length - 1)]);
 
 				var values = new List<object>
 				{
 					Convert.ToUInt64(previous[0]) + 24 > UInt64.MaxValue ? 0 : Convert.ToUInt64(previous[0]) + 24,
-					Convert.ToUInt64(previous[1]) + randGrow > UInt64.MaxValue ? 0 : Convert.ToUInt64(previous[1]) + randGrow,
-					Convert.ToUInt64(previous[2]) + randPredifined > UInt64.MaxValue ? 0 : Convert.ToUInt64(previous[2]) + randPredifined,
+					Convert.ToUInt64(previous[1]) + randomGrow > UInt64.MaxValue ? 0 : Convert.ToUInt64(previous[1]) + randomGrow,
+					Convert.ToUInt64(previous[2]) + randomPredifined > UInt64.MaxValue ? 0 : Convert.ToUInt64(previous[2]) + randomPredifined,
 					random.Next(UInt16.MaxValue)
 				};
 
