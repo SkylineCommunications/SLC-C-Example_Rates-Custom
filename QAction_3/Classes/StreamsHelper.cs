@@ -12,7 +12,7 @@
 		private readonly StreamsGetter getter;
 		private readonly StreamsSetter setter;
 
-		internal StreamsHelper(SLProtocolExt protocol)
+		internal StreamsHelper(SLProtocol protocol)
 		{
 			getter = new StreamsGetter(protocol);
 			getter.Load();
@@ -26,7 +26,7 @@
 			{
 				setter.SetColumnsData[Parameter.Streams.tablePid].Add(Convert.ToString(getter.Keys[i]));
 
-				ProcessBitRates(i, now, minDelta: new TimeSpan(0, 1, 30), maxDelta: new TimeSpan(0, 10, 0));
+				ProcessBitRates(i, now, minDelta: new TimeSpan(0, 1, 0), maxDelta: new TimeSpan(0, 10, 0));
 			}
 		}
 
@@ -37,9 +37,8 @@
 
 		private void ProcessBitRates(int getPosition, DateTime now, TimeSpan minDelta, TimeSpan maxDelta)
 		{
-			RateHelper rateHelper;
+			RateHelper rateHelper = RateHelper.FromJsonString(Convert.ToString(getter.InOctetsRateData[getPosition]), minDelta, maxDelta);
 
-			rateHelper = RateHelper.FromJsonString(Convert.ToString(getter.InOctetsBuffer[getPosition]), minDelta, maxDelta);
 			setter.SetColumnsData[Parameter.Streams.Pid.streamsoctetscounter_1003].Add(Convert.ToUInt64(getter.InOctets[getPosition]));
 			setter.SetColumnsData[Parameter.Streams.Pid.streamsbitrate_1004].Add(rateHelper.Calculate(Convert.ToUInt64(getter.InOctets[getPosition]), now, true));
 			setter.SetColumnsData[Parameter.Streams.Pid.streamsbitratedata_1005].Add(rateHelper.ToJsonString());
@@ -47,9 +46,9 @@
 
 		private class StreamsGetter
 		{
-			private readonly SLProtocolExt protocol;
+			private readonly SLProtocol protocol;
 
-			internal StreamsGetter(SLProtocolExt protocol)
+			internal StreamsGetter(SLProtocol protocol)
 			{
 				this.protocol = protocol;
 			}
@@ -58,7 +57,7 @@
 
 			public object[] InOctets { get; private set; }
 
-			public object[] InOctetsBuffer { get; private set; }
+			public object[] InOctetsRateData { get; private set; }
 
 			internal void Load()
 			{
@@ -69,26 +68,27 @@
 
 				Keys = (object[])tableData[0];
 				InOctets = FillOctets((object[])tableData[1]);
-				InOctetsBuffer = (object[])tableData[2];
+				InOctetsRateData = (object[])tableData[2];
 			}
 
 			private static object[] FillOctets(object[] previous)
 			{
-				var predifined = new object[] { 48, 24, 96, 128, 246, 8 };
-
 				Random random = new Random();
-				var randomGrow = Convert.ToUInt64(random.Next(24));
-				var randomPredifined = Convert.ToUInt64(predifined[random.Next(predifined.Length - 1)]);
+				UInt64[] predifined = new UInt64[] { 48, 24, 96, 128, 246, 8 };
 
-				var values = new List<object>
+				UInt64 constantGrow = 24;
+				UInt64 randomGrow = Convert.ToUInt64(random.Next(24));
+				UInt64 randomPredifined = predifined[random.Next(predifined.Length - 1)];
+
+				var octetsValues = new List<object>
 				{
-					Convert.ToUInt64(previous[0]) + 24 > UInt64.MaxValue ? 0 : Convert.ToUInt64(previous[0]) + 24,
+					Convert.ToUInt64(previous[0]) + constantGrow > UInt64.MaxValue ? 0 : Convert.ToUInt64(previous[0]) + constantGrow,
 					Convert.ToUInt64(previous[1]) + randomGrow > UInt64.MaxValue ? 0 : Convert.ToUInt64(previous[1]) + randomGrow,
 					Convert.ToUInt64(previous[2]) + randomPredifined > UInt64.MaxValue ? 0 : Convert.ToUInt64(previous[2]) + randomPredifined,
-					random.Next(UInt16.MaxValue)
+					random.Next(UInt16.MaxValue),
 				};
 
-				return values.ToArray();
+				return octetsValues.ToArray();
 			}
 		}
 
@@ -96,9 +96,9 @@
 		{
 			internal readonly Dictionary<object, List<object>> SetColumnsData;
 
-			private readonly SLProtocolExt protocol;
+			private readonly SLProtocol protocol;
 
-			internal StreamsSetter(SLProtocolExt protocol)
+			internal StreamsSetter(SLProtocol protocol)
 			{
 				this.protocol = protocol;
 

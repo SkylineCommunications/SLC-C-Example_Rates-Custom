@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 using Skyline.DataMiner.Scripting;
 
+using SLNetMessages = Skyline.DataMiner.Net.Messages;
+
 /// <summary>
 /// DataMiner QAction Class: After Startup.
 /// </summary>
@@ -12,11 +14,12 @@ public static class QAction
 	/// The QAction entry point.
 	/// </summary>
 	/// <param name="protocol">Link with SLProtocol process.</param>
-	public static void Run(SLProtocolExt protocol)
+	public static void Run(SLProtocol protocol)
 	{
 		try
 		{
-			if (protocol.streams.Keys.Length == 0)
+			object[] streamKeys = (object[])((object[])protocol.NotifyProtocol(321, Parameter.Streams.tablePid, new uint[] { 0 }))[0];
+			if (streamKeys == null || streamKeys.Length == 0)
 			{
 				CreateRows(protocol);
 			}
@@ -31,9 +34,9 @@ public static class QAction
 	/// Create the Rows on Table.
 	/// </summary>
 	/// <param name="protocol">Link with SLProtocol process.</param>
-	private static void CreateRows(SLProtocolExt protocol)
+	private static void CreateRows(SLProtocol protocol)
 	{
-		var rows = new List<StreamsQActionRow>
+		var rows = new List<object[]>
 		{
 			new StreamsQActionRow
 			{
@@ -42,7 +45,7 @@ public static class QAction
 				Streamsoctetscounter_1003 = 0,
 				Streamsbitrate_1004 = 0,
 				Streamsbitratedata_1005 = String.Empty
-			},
+			}.ToObjectArray(),
 			new StreamsQActionRow
 			{
 				Streamsindex_1001 = 2,
@@ -50,7 +53,7 @@ public static class QAction
 				Streamsoctetscounter_1003 = 0,
 				Streamsbitrate_1004 = 0,
 				Streamsbitratedata_1005 = String.Empty
-			},
+			}.ToObjectArray(),
 			new StreamsQActionRow
 			{
 				Streamsindex_1001 = 3,
@@ -58,7 +61,7 @@ public static class QAction
 				Streamsoctetscounter_1003 = 0,
 				Streamsbitrate_1004 = 0,
 				Streamsbitratedata_1005 = String.Empty
-			},
+			}.ToObjectArray(),
 			new StreamsQActionRow
 			{
 				Streamsindex_1001 = 4,
@@ -66,9 +69,9 @@ public static class QAction
 				Streamsoctetscounter_1003 = 0,
 				Streamsbitrate_1004 = 0,
 				Streamsbitratedata_1005 = String.Empty
-			}
+			}.ToObjectArray(),
 		};
 
-		protocol.streams.FillArray(rows.ToArray());
+		protocol.FillArray(Parameter.Streams.tablePid, rows, NotifyProtocol.SaveOption.Full);
 	}
 }
