@@ -2,10 +2,10 @@
 {
 	using System;
 	using System.Collections.Generic;
+
 	using Skyline.DataMiner.Scripting;
 	using Skyline.Protocol.Extensions;
 	using Skyline.Protocol.Rates;
-	using SLNetMessages = Skyline.DataMiner.Net.Messages;
 
 	public class StreamsHelper
 	{
@@ -39,8 +39,13 @@
 		{
 			RateHelper rateHelper = RateHelper.FromJsonString(Convert.ToString(getter.InOctetsRateData[getPosition]), minDelta, maxDelta);
 
-			setter.SetColumnsData[Parameter.Streams.Pid.streamsoctetscounter_1003].Add(Convert.ToUInt64(getter.InOctets[getPosition]));
-			setter.SetColumnsData[Parameter.Streams.Pid.streamsbitrate_1004].Add(rateHelper.Calculate(Convert.ToUInt64(getter.InOctets[getPosition]), now, true));
+			// TODO: Safe conversion ?
+			//ulong inOctets = Convert.ToUInt64(getter.InOctets[getPosition]);
+			ulong inOctets = Convert.ToUInt64(getter.InOctets[getPosition]);
+			ulong inBytes = inOctets / 8;
+
+			setter.SetColumnsData[Parameter.Streams.Pid.streamsoctetscounter_1003].Add(inOctets);
+			setter.SetColumnsData[Parameter.Streams.Pid.streamsbitrate_1004].Add(rateHelper.Calculate(inBytes, now));
 			setter.SetColumnsData[Parameter.Streams.Pid.streamsbitratedata_1005].Add(rateHelper.ToJsonString());
 		}
 
@@ -61,24 +66,29 @@
 
 			internal void Load()
 			{
-				var tableData = (object[])protocol.NotifyProtocol(
-					(int)SLNetMessages.NotifyType.NT_GET_TABLE_COLUMNS,
-					Parameter.Streams.tablePid,
-					new uint[] { Parameter.Streams.Idx.streamsindex_1001, Parameter.Streams.Idx.streamsoctetscounter_1003, Parameter.Streams.Idx.streamsbitratedata_1005 });
+				var tableData = (object[])protocol.NotifyProtocol(321, Parameter.Streams.tablePid, new uint[] {
+					Parameter.Streams.Idx.streamsindex_1001,
+					Parameter.Streams.Idx.streamsoctetscounter_1003,
+					Parameter.Streams.Idx.streamsbitratedata_1005, });
 
 				Keys = (object[])tableData[0];
 				InOctets = FillOctets((object[])tableData[1]);
 				InOctetsRateData = (object[])tableData[2];
 			}
 
+			/// <summary>
+			/// Method used to simulate device data with random data.
+			/// </summary>
+			/// <param name="previous">Previous octets values used to calculate next ones.</param>
+			/// <returns></returns>
 			private static object[] FillOctets(object[] previous)
 			{
 				Random random = new Random();
-				UInt64[] predifined = new UInt64[] { 48, 24, 96, 128, 246, 8 };
+				ulong[] predifined = new ulong[] { 48, 24, 96, 128, 246, 8 };
 
-				UInt64 constantGrow = 24;
-				UInt64 randomGrow = Convert.ToUInt64(random.Next(24));
-				UInt64 randomPredifined = predifined[random.Next(predifined.Length - 1)];
+				ulong constantGrow = 24;
+				ulong randomGrow = Convert.ToUInt64(random.Next(24));
+				ulong randomPredifined = predifined[random.Next(predifined.Length - 1)];
 
 				var octetsValues = new List<object>
 				{
@@ -107,7 +117,7 @@
 					{ Parameter.Streams.tablePid, new List<object>() },
 					{ Parameter.Streams.Pid.streamsoctetscounter_1003, new List<object>() },
 					{ Parameter.Streams.Pid.streamsbitrate_1004, new List<object>() },
-					{ Parameter.Streams.Pid.streamsbitratedata_1005, new List<object>() }
+					{ Parameter.Streams.Pid.streamsbitratedata_1005, new List<object>() },
 				};
 			}
 

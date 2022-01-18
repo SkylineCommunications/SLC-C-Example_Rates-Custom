@@ -3,8 +3,6 @@ using System.Collections.Generic;
 
 using Skyline.DataMiner.Scripting;
 
-using SLNetMessages = Skyline.DataMiner.Net.Messages;
-
 /// <summary>
 /// DataMiner QAction Class: After Startup.
 /// </summary>

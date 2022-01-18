@@ -8,6 +8,9 @@
 
 	using Newtonsoft.Json;
 
+	/// <summary>
+	/// Class <c>RateHelper</c> helps calculating rates no matter its type (bit rates, counter rates, etc)
+	/// </summary>
 	[Serializable]
 	public class RateHelper
 	{
@@ -20,6 +23,11 @@
 		[JsonProperty]
 		private readonly List<RateCounter> counters = new List<RateCounter>();
 
+		/// <summary>
+		/// This is a constructor for the <c>RateHelper</c> class.
+		/// </summary>
+		/// <param name="minDelta">Minimum timespan necessary between 2 counters when calculating a rate. Counters will be buffered until this minimum delta is met.</param>
+		/// <param name="minDelta">Maximum timespan allowed between 2 counters when calculating a rate.</param>
 		public RateHelper(TimeSpan minDelta, TimeSpan maxDelta)
 		{
 			this.minDelta = minDelta;
@@ -79,11 +87,6 @@
 			counters.Add(new RateCounter(newCounter, time));
 
 			return rate;
-		}
-
-		public double Calculate(ulong newCounter, DateTime time, bool isOctet = false, double faultyReturn = -1)
-		{
-			return isOctet ? Calculate(newCounter / 8, time, faultyReturn) : Calculate(newCounter, time, faultyReturn);
 		}
 
 		public void Reset()
