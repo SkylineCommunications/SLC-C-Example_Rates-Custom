@@ -37,7 +37,7 @@
 
 		private void ProcessBitRates(int getPosition, DateTime now, TimeSpan minDelta, TimeSpan maxDelta)
 		{
-			RateHelper rateHelper = RateHelper.FromJsonString(Convert.ToString(getter.InOctetsRateData[getPosition]), minDelta, maxDelta);
+			RateHelper64 rateHelper = RateHelper64.FromJsonString(Convert.ToString(getter.InOctetsRateData[getPosition]), minDelta, maxDelta);
 
 			// TODO: Safe conversion ?
 			//ulong inOctets = Convert.ToUInt64(getter.InOctets[getPosition]);
