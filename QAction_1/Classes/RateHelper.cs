@@ -12,7 +12,7 @@
 	/// This class is meant to be used as base class for more specific RateHelpers depending on the range of counters (uint, ulong, etc).
 	/// </summary>
 	[Serializable]
-	public class RateHelper<T, U> where T : RateCounter<U>
+	public class RateHelper<T, U> where T : RateCounter<U>/*, new()*/
 	{
 		[JsonProperty]
 		protected readonly TimeSpan minDelta;
@@ -21,7 +21,7 @@
 		protected readonly TimeSpan maxDelta;
 
 		[JsonProperty]
-		protected readonly List<T> counters;
+		protected readonly List<T> counters = new List<T>();
 
 		private protected RateHelper(TimeSpan minDelta, TimeSpan maxDelta)
 		{
@@ -105,7 +105,7 @@
 	[Serializable]
 	public class RateHelper32 : RateHelper<RateCounter32, uint>
 	{
-		private RateHelper32(TimeSpan minDelta, TimeSpan maxDelta) : base(minDelta, maxDelta) { }
+		public RateHelper32(TimeSpan minDelta, TimeSpan maxDelta) : base(minDelta, maxDelta) { }
 
 		/// <summary>
 		/// Calculates a rate using provided <paramref name="newCounter"/> against previous counters buffered in this <c>RateHelper32</c> instance. 
@@ -145,7 +145,7 @@
 	[Serializable]
 	public class RateHelper64 : RateHelper<RateCounter64, ulong>
 	{
-		private RateHelper64(TimeSpan minDelta, TimeSpan maxDelta) : base(minDelta, maxDelta) { }
+		public RateHelper64(TimeSpan minDelta, TimeSpan maxDelta) : base(minDelta, maxDelta) { }
 
 		/// <summary>
 		/// Calculates a rate using provided <paramref name="newCounter"/> against previous counters buffered in this <c>RateHelper32</c> instance. 
