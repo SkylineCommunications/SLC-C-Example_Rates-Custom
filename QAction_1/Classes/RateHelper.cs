@@ -8,7 +8,8 @@
 
 	#region RateHelpers
 	/// <summary>
-	/// Class <c>RateHelper</c> helps calculating rates no matter its type (bit rates, counter rates, etc)
+	/// Class <c>RateHelper</c> helps calculating rates of all sorts (bit rates, counter rates, etc) based on counters.
+	/// This class is meant to be used as base class for more specific RateHelpers depending on the range of counters (uint, ulong, etc).
 	/// </summary>
 	[Serializable]
 	public class RateHelper<T, U> where T : RateCounter<U>
@@ -22,11 +23,6 @@
 		[JsonProperty]
 		protected readonly List<T> counters;
 
-		/// <summary>
-		/// This is a constructor for the <c>RateHelper</c> class.
-		/// </summary>
-		/// <param name="minDelta">Minimum timespan necessary between 2 counters when calculating a rate. Counters will be buffered until this minimum delta is met.</param>
-		/// <param name="minDelta">Maximum timespan allowed between 2 counters when calculating a rate.</param>
 		private protected RateHelper(TimeSpan minDelta, TimeSpan maxDelta)
 		{
 			this.minDelta = minDelta;
@@ -64,7 +60,15 @@
 			{
 				unchecked
 				{
-					rate = (newCounter - counters[oldCounterPos].Counter) / (time - counters[oldCounterPos].Time).TotalMinutes;
+					// Note that the use of var without casting here only works cause currently, generic type U can only be uint or ulong and :
+					// - subtracting 2 uint implicitly returns a uint and handles wrap around nicely.
+					// - subtracting 2 ulong implicitly returns a ulong and handles wrap around nicely.
+					// If generic type U could be of other types, then an explicit casting could be required. Example:
+					// - subtracting 2 ushort implicitly first converts both values to int, subtract them and returns an int and won't handle wrap around properly.
+					//    In such case, an explicit cast to ushort would be required for the wrap around to be properly handled.
+					var counterIncrease = newCounter - counters[oldCounterPos].Counter;
+
+					rate = counterIncrease / (time - counters[oldCounterPos].Time).TotalMinutes;
 				}
 
 				counters.RemoveRange(0, oldCounterPos);
@@ -77,26 +81,39 @@
 			return true;
 		}
 
+		/// <summary>
+		/// This resets the currently buffered data of this <c>RateHelper</c> instance. 
+		/// </summary>
 		public void Reset()
 		{
 			counters.Clear();
 		}
 
+		/// <summary>
+		/// This serializes the currently buffered data of this <c>RateHelper</c> instance.
+		/// </summary>
+		/// <returns>A JSON string containing the serialized data of this <c>RateHelper</c> instance.</returns>
 		public string ToJsonString()
 		{
 			return JsonConvert.SerializeObject(this);
 		}
 	}
 
-	/// <inheritdoc/>
+	/// <summary>
+	/// Class <c>RateHelper</c> helps calculating rates of all sorts (bit rates, counter rates, etc) based on 32 bit counters.
+	/// </summary>
 	[Serializable]
 	public class RateHelper32 : RateHelper<RateCounter32, uint>
 	{
-		/// <inheritdoc/>
-		public RateHelper32(TimeSpan minDelta, TimeSpan maxDelta) : base(minDelta, maxDelta)
-		{
-		}
+		private RateHelper32(TimeSpan minDelta, TimeSpan maxDelta) : base(minDelta, maxDelta) { }
 
+		/// <summary>
+		/// Calculates a rate using provided <paramref name="newCounter"/> against previous counters buffered in this <c>RateHelper32</c> instance. 
+		/// </summary>
+		/// <param name="newCounter">The latest known counter value.</param>
+		/// <param name="time">The DateTime at which <paramref name="newCounter"/> value was taken.</param>
+		/// <param name="faultyReturn">The value to be returned in case a correct rate could not be calculated.</param>
+		/// <returns></returns>
 		public double Calculate(uint newCounter, DateTime time, double faultyReturn = -1)
 		{
 			if (base.TryCalculate(newCounter, time, faultyReturn, out double rate))
@@ -107,6 +124,13 @@
 			return rate;
 		}
 
+		/// <summary>
+		/// Deserializes a JSON <typeparamref name="string" /> to a <c>RateHelper32</c> instance.
+		/// </summary>
+		/// <param name="rateHelperSerialized">Serialized <c>RateHelper32</c> instance.</param>
+		/// <param name="minDelta">Minimum timespan necessary between 2 counters when calculating a rate. Counters will be buffered until this minimum delta is met.</param>
+		/// <param name="minDelta">Maximum timespan allowed between 2 counters when calculating a rate.</param>
+		/// <returns></returns>
 		public static RateHelper32 FromJsonString(string rateHelperSerialized, TimeSpan minDelta, TimeSpan maxDelta)
 		{
 			return !String.IsNullOrWhiteSpace(rateHelperSerialized) ?
@@ -115,15 +139,21 @@
 		}
 	}
 
-	/// <inheritdoc/>
+	/// <summary>
+	/// Class <c>RateHelper</c> helps calculating rates of all sorts (bit rates, counter rates, etc) based on 64 bit counters.
+	/// </summary>
 	[Serializable]
 	public class RateHelper64 : RateHelper<RateCounter64, ulong>
 	{
-		/// <inheritdoc/>
-		public RateHelper64(TimeSpan minDelta, TimeSpan maxDelta) : base(minDelta, maxDelta)
-		{
-		}
+		private RateHelper64(TimeSpan minDelta, TimeSpan maxDelta) : base(minDelta, maxDelta) { }
 
+		/// <summary>
+		/// Calculates a rate using provided <paramref name="newCounter"/> against previous counters buffered in this <c>RateHelper32</c> instance. 
+		/// </summary>
+		/// <param name="newCounter">The latest known counter value.</param>
+		/// <param name="time">The DateTime at which <paramref name="newCounter"/> value was taken.</param>
+		/// <param name="faultyReturn">The value to be returned in case a correct rate could not be calculated.</param>
+		/// <returns></returns>
 		public double Calculate(ulong newCounter, DateTime time, double faultyReturn = -1)
 		{
 			if (base.TryCalculate(newCounter, time, faultyReturn, out double rate))
@@ -134,6 +164,13 @@
 			return rate;
 		}
 
+		/// <summary>
+		/// Deserializes a JSON string to a <c>RateHelper64</c> instance.
+		/// </summary>
+		/// <param name="rateHelperSerialized">Serialized <c>RateHelper64</c> instance.</param>
+		/// <param name="minDelta">Minimum timespan necessary between 2 counters when calculating a rate. Counters will be buffered until this minimum delta is met.</param>
+		/// <param name="minDelta">Maximum timespan allowed between 2 counters when calculating a rate.</param>
+		/// <returns></returns>
 		public static RateHelper64 FromJsonString(string rateHelperSerialized, TimeSpan minDelta, TimeSpan maxDelta)
 		{
 			return !String.IsNullOrWhiteSpace(rateHelperSerialized) ?
