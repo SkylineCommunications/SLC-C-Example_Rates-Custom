@@ -6,6 +6,7 @@
 	using Skyline.DataMiner.Scripting;
 	using Skyline.Protocol.Extensions;
 	using Skyline.Protocol.Rates;
+	using Skyline.Protocol.SafeConverters;
 
 	public class StreamsHelper
 	{
@@ -39,9 +40,7 @@
 		{
 			RateHelper64 rateHelper = RateHelper64.FromJsonString(Convert.ToString(getter.InOctetsRateData[getPosition]), minDelta, maxDelta);
 
-			// TODO: Safe conversion ?
-			//ulong inOctets = Convert.ToUInt64(getter.InOctets[getPosition]);
-			ulong inOctets = Convert.ToUInt64(getter.InOctets[getPosition]);
+			ulong inOctets = SafeConvert.ToUInt64(Convert.ToDouble(getter.InOctets[getPosition]));
 			ulong inBytes = inOctets / 8;
 
 			setter.SetColumnsData[Parameter.Streams.Pid.streamsoctetscounter_1003].Add(inOctets);
