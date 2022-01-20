@@ -113,7 +113,7 @@ namespace Skyline.Protocol.Rates.Tests
 			DateTime start = new DateTime(2000, 1, 1);
 			var helper = RateHelper32.FromJsonString("", minDelta, maxDelta);
 
-			helper.Calculate(uint.MaxValue - 10, start);
+			helper.Calculate(UInt32.MaxValue - 10, start);
 
 			// Act
 			double rate = helper.Calculate(9, start.AddSeconds(100));
