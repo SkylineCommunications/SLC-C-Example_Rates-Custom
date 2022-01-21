@@ -8,18 +8,27 @@
 
 	#region RateHelpers
 	/// <summary>
-	/// Class <c>RateHelper</c> helps calculating rates of all sorts (bit rates, counter rates, etc) based on counters.
-	/// This class is meant to be used as base class for more specific RateHelpers depending on the range of counters (uint, ulong, etc).
+	/// Class <see cref="RateHelper"/> class helps calculating rates of all sorts (bit rates, counter rates, etc) based on counters.
+	/// This class is meant to be used as base class for more specific RateHelpers depending on the range of counters (<see cref="System.UInt32"/>, <see cref="System.UInt64"/>, etc).
 	/// </summary>
 	[Serializable]
 	public class RateHelper<T, U> where T : RateCounter<U>/*, new()*/
 	{
+		/// <summary>
+		/// The minimum delta.
+		/// </summary>
 		[JsonProperty]
 		protected readonly TimeSpan minDelta;
 
+		/// <summary>
+		/// The maximum delta.
+		/// </summary>
 		[JsonProperty]
 		protected readonly TimeSpan maxDelta;
 
+		/// <summary>
+		/// The list of counter values.
+		/// </summary>
 		[JsonProperty]
 		protected readonly List<T> counters = new List<T>();
 
@@ -29,6 +38,14 @@
 			this.maxDelta = maxDelta;
 		}
 
+		/// <summary>
+		/// Tries calculating the rate based on the provided counter value in <paramref name="newCounter"/> 
+		/// </summary>
+		/// <param name="newCounter">The new counter value.</param>
+		/// <param name="time">The time stamp of the new counter value.</param>
+		/// <param name="faultyReturn">The value that should be returned in case the rate can not be calculated.</param>
+		/// <param name="rate">The calculated rate.</param>
+		/// <returns><c>true</c> if the calculation succeeded; otherwise, <c>false</c>.</returns>
 		protected bool TryCalculate(dynamic newCounter, DateTime time, double faultyReturn, out double rate)
 		{
 			rate = faultyReturn;
@@ -82,7 +99,7 @@
 		}
 
 		/// <summary>
-		/// This resets the currently buffered data of this <c>RateHelper</c> instance. 
+		/// Resets the currently buffered data of this <see cref="RateHelper"/> instance.
 		/// </summary>
 		public void Reset()
 		{
@@ -90,9 +107,9 @@
 		}
 
 		/// <summary>
-		/// This serializes the currently buffered data of this <c>RateHelper</c> instance.
+		/// Serializes the currently buffered data of this <see cref="RateHelper"/> instance.
 		/// </summary>
-		/// <returns>A JSON string containing the serialized data of this <c>RateHelper</c> instance.</returns>
+		/// <returns>A JSON string containing the serialized data of this <see cref="RateHelper"/> instance.</returns>
 		public string ToJsonString()
 		{
 			return JsonConvert.SerializeObject(this);
@@ -100,20 +117,25 @@
 	}
 
 	/// <summary>
-	/// Class <c>RateHelper</c> helps calculating rates of all sorts (bit rates, counter rates, etc) based on 32 bit counters.
+	/// Allows calculating rates of all sorts (bit rates, counter rates, etc) based on 32 bit <see cref="System.UInt32"/> counters.
 	/// </summary>
 	[Serializable]
 	public class RateHelper32 : RateHelper<RateCounter32, uint>
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="RateHelper32"/> class.
+		/// </summary>
+		/// <param name="minDelta">The minimum delta.</param>
+		/// <param name="maxDelta">The maximum delta.</param>
 		public RateHelper32(TimeSpan minDelta, TimeSpan maxDelta) : base(minDelta, maxDelta) { }
 
 		/// <summary>
-		/// Calculates a rate using provided <paramref name="newCounter"/> against previous counters buffered in this <c>RateHelper32</c> instance. 
+		/// Calculates the rate using provided <paramref name="newCounter"/> against previous counters buffered in this <see cref="RateHelper32"/> instance.
 		/// </summary>
 		/// <param name="newCounter">The latest known counter value.</param>
 		/// <param name="time">The DateTime at which <paramref name="newCounter"/> value was taken.</param>
 		/// <param name="faultyReturn">The value to be returned in case a correct rate could not be calculated.</param>
-		/// <returns></returns>
+		/// <returns>The calculated rate or the value specified in <paramref name="faultyReturn"/> in case the rate can not be calculated.</returns>
 		public double Calculate(uint newCounter, DateTime time, double faultyReturn = -1)
 		{
 			if (base.TryCalculate(newCounter, time, faultyReturn, out double rate))
@@ -140,11 +162,16 @@
 	}
 
 	/// <summary>
-	/// Class <c>RateHelper</c> helps calculating rates of all sorts (bit rates, counter rates, etc) based on 64 bit counters.
+	/// Allows calculating rates of all sorts (bit rates, counter rates, etc) based on 32 bit <see cref="System.UInt64"/> counters.
 	/// </summary>
 	[Serializable]
 	public class RateHelper64 : RateHelper<RateCounter64, ulong>
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="RateHelper64"/> class.
+		/// </summary>
+		/// <param name="minDelta">The minimum delta.</param>
+		/// <param name="maxDelta">The maximum delta.</param>
 		public RateHelper64(TimeSpan minDelta, TimeSpan maxDelta) : base(minDelta, maxDelta) { }
 
 		/// <summary>
@@ -181,27 +208,60 @@
 	#endregion
 
 	#region RateCounters
+	/// <summary>
+	/// Represents a rate counter.
+	/// </summary>
+	/// <typeparam name="U"></typeparam>
 	public class RateCounter<U>
 	{
+		/// <summary>
+		/// Gets or sets the time stamp.
+		/// </summary>
+		/// <value>The time stamp.</value>
 		public DateTime Time { get; set; }
+
+		/// <summary>
+		/// Gets or sets the counter value.
+		/// </summary>
+		/// <value>The counter value.</value>
 		public U Counter { get; set; }
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="RateCounter{U}"/> class.
+		/// </summary>
+		/// <param name="time">The time stamp.</param>
 		protected RateCounter(DateTime time)
 		{
 			Time = time;
 		}
 	}
 
+	/// <summary>
+	/// Represents a rate counter based on <see cref="System.UInt32"/> counter values.
+	/// </summary>
 	public class RateCounter32 : RateCounter<uint>
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="RateCounter32"/> class.
+		/// </summary>
+		/// <param name="counter">The counter value.</param>
+		/// <param name="time">The time value.</param>
 		public RateCounter32(uint counter, DateTime time) : base(time)
 		{
 			Counter = counter;
 		}
 	}
 
+	/// <summary>
+	/// Represents a rate counter based on <see cref="System.UInt64"/> counter values.
+	/// </summary>
 	public class RateCounter64 : RateCounter<ulong>
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="RateCounter64"/> class.
+		/// </summary>
+		/// <param name="counter">The counter value.</param>
+		/// <param name="time">The time value.</param>
 		public RateCounter64(ulong counter, DateTime time) : base(time)
 		{
 			Counter = counter;
