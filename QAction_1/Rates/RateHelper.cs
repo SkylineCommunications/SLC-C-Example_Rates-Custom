@@ -283,10 +283,10 @@
 	#region RateCounters
 	public class RateCounter<U>
 	{
-		public DateTime DateTime { get; set; }
-		public TimeSpan TimeSpan { get; set; }
+		public DateTime DateTime { get; }
+		public TimeSpan TimeSpan { get; }
 
-		public U Counter { get; set; }
+		public U Counter { get; protected set; }
 
 		private protected RateCounter() { }     // Default constructor for Deserializer
 
