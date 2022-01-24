@@ -304,7 +304,7 @@ namespace Skyline.Protocol.Rates.Tests
 		}
 
 		[TestMethod()]
-		public void Serialize_Invalid_DifferentTiming()
+		public void Serialize_Invalid_DifferentDateTime()
 		{
 			// Arrange
 			DateTime start = new DateTime(2000, 1, 1);
@@ -328,7 +328,30 @@ namespace Skyline.Protocol.Rates.Tests
 		}
 
 		[TestMethod()]
-		public void Serialize_Valid()
+		public void Serialize_Invalid_DifferentTimeSpan()
+		{
+			// Arrange
+			var helper1 = RateHelper64.FromJsonString("", minDelta, maxDelta);
+			helper1.Calculate(5, new TimeSpan(0, 0, 0));
+			helper1.Calculate(10, new TimeSpan(0, 0, 10));
+
+			string serializedTemp = helper1.ToJsonString();
+			var helper2 = RateHelper64.FromJsonString(serializedTemp, minDelta, maxDelta);
+
+			// same counter, different timing
+			helper1.Calculate(20, new TimeSpan(0, 0, 9));
+			helper2.Calculate(20, new TimeSpan(0, 0, 2));
+
+			// Act
+			string serialized1 = helper1.ToJsonString();
+			string serialized2 = helper2.ToJsonString();
+
+			// Assert
+			serialized1.Should().NotBeEquivalentTo(serialized2);
+		}
+
+		[TestMethod()]
+		public void Serialize_Valid_DateTime()
 		{
 			// Arrange
 			DateTime start = new DateTime(2000, 1, 1);
@@ -350,12 +373,42 @@ namespace Skyline.Protocol.Rates.Tests
 			serialized1.Should().BeEquivalentTo(serialized2);
 		}
 
+		[TestMethod()]
+		public void Serialize_Valid_TimeSpan()
+		{
+			// Arrange
+			var helper1 = RateHelper64.FromJsonString("", minDelta, maxDelta);
+			helper1.Calculate(5, new TimeSpan(0, 0, 0));
+			helper1.Calculate(10, new TimeSpan(0, 0, 10));
+
+			string serializedTemp = helper1.ToJsonString();
+			var helper2 = RateHelper64.FromJsonString(serializedTemp, minDelta, maxDelta);
+
+			AddSameToBoth(helper1, helper2, 20, new TimeSpan(0, 0, 9));
+			AddSameToBoth(helper1, helper2, 30, new TimeSpan(0, 0, 8));
+
+			// Act
+			string serialized1 = helper1.ToJsonString();
+			string serialized2 = helper2.ToJsonString();
+
+			// Assert
+			serialized1.Should().BeEquivalentTo(serialized2);
+		}
+
 		#endregion
 
+		#region HelperMethods
 		private static void AddSameToBoth(RateHelper64 helper1, RateHelper64 helper2, ulong newCounter, DateTime time)
 		{
 			helper1.Calculate(newCounter, time);
 			helper2.Calculate(newCounter, time);
 		}
+
+		private static void AddSameToBoth(RateHelper64 helper1, RateHelper64 helper2, ulong newCounter, TimeSpan time)
+		{
+			helper1.Calculate(newCounter, time);
+			helper2.Calculate(newCounter, time);
+		}
+		#endregion
 	}
 }
