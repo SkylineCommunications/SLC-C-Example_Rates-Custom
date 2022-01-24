@@ -4,8 +4,6 @@ using FluentAssertions;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using Skyline.Protocol.Rates;
-
 namespace Skyline.Protocol.Rates.Tests
 {
 	[TestClass()]
@@ -85,7 +83,7 @@ namespace Skyline.Protocol.Rates.Tests
 			double rate = helper.Calculate(50, start.AddSeconds(100));
 
 			// Assert
-			double expectedRate = (50.0 - 5.0) / (100 / 60.0);
+			double expectedRate = (50.0 - 5.0) / 100;
 			Assert.IsTrue(rate == expectedRate, "rate '" + rate + "' != expectedRate '" + expectedRate + "'");
 		}
 
@@ -102,7 +100,7 @@ namespace Skyline.Protocol.Rates.Tests
 			double rate = helper.Calculate(50, start.AddSeconds(100));
 
 			// Assert
-			double expectedRate = (50.0 - 5.0) / (100 / 60.0);
+			double expectedRate = (50.0 - 5.0) / 100;
 			Assert.IsTrue(rate == expectedRate, "rate '" + rate + "' != expectedRate '" + expectedRate + "'");
 		}
 
@@ -119,7 +117,7 @@ namespace Skyline.Protocol.Rates.Tests
 			double rate = helper.Calculate(9, start.AddSeconds(100));
 
 			// Assert
-			double expectedRate = 20 / (100 / 60.0);
+			double expectedRate = 20d / 100d;
 			Assert.IsTrue(rate == expectedRate, "rate '" + rate + "' != expectedRate '" + expectedRate + "'");
 		}
 
@@ -191,7 +189,7 @@ namespace Skyline.Protocol.Rates.Tests
 			double rate = helper.Calculate(50, new TimeSpan(0, 0, 7));  // 1m40s
 
 			// Assert
-			double expectedRate = (50.0 - 5.0) / ((7 + 1 + 1 + 1 + 90) / 60.0);
+			double expectedRate = (50.0 - 5.0) / (7 + 1 + 1 + 1 + 90);
 			Assert.IsTrue(rate == expectedRate, "rate '" + rate + "' != expectedRate '" + expectedRate + "'");
 		}
 
@@ -207,7 +205,56 @@ namespace Skyline.Protocol.Rates.Tests
 			double rate = helper.Calculate(50, new TimeSpan(0, 0, 100));
 
 			// Assert
-			double expectedRate = (50.0 - 5.0) / (100 / 60.0);
+			double expectedRate = (50.0 - 5.0) / 100d;
+			Assert.IsTrue(rate == expectedRate, "rate '" + rate + "' != expectedRate '" + expectedRate + "'");
+		}
+
+		[TestMethod()]
+		public void CalculateWithTimeSpanValid_ToPreviousCounter_PerDay()
+		{
+			// Arrange
+			var helper = RateHelper32.FromJsonString("", minDelta, maxDelta, RateBase.Day);
+
+			helper.Calculate(5, new TimeSpan(0, 0, 10));
+
+			// Act
+			double rate = helper.Calculate(50, new TimeSpan(0, 0, 100));
+
+			// Assert
+			double expectedRate = (50.0 - 5.0) / (100d / 60 / 60 / 24);
+			////Assert.IsTrue(rate == expectedRate, "rate '" + rate + "' != expectedRate '" + expectedRate + "'");
+			rate.Should().BeApproximately(expectedRate, Math.Pow(10, -9));
+		}
+
+		[TestMethod()]
+		public void CalculateWithTimeSpanValid_ToPreviousCounter_PerHour()
+		{
+			// Arrange
+			var helper = RateHelper32.FromJsonString("", minDelta, maxDelta, RateBase.Hour);
+
+			helper.Calculate(5, new TimeSpan(0, 0, 10));
+
+			// Act
+			double rate = helper.Calculate(50, new TimeSpan(0, 0, 100));
+
+			// Assert
+			double expectedRate = (50.0 - 5.0) / (100d / 60 / 60);
+			Assert.IsTrue(rate == expectedRate, "rate '" + rate + "' != expectedRate '" + expectedRate + "'");
+		}
+
+		[TestMethod()]
+		public void CalculateWithTimeSpanValid_ToPreviousCounter_PerMinute()
+		{
+			// Arrange
+			var helper = RateHelper32.FromJsonString("", minDelta, maxDelta, RateBase.Minute);
+
+			helper.Calculate(5, new TimeSpan(0, 0, 10));
+
+			// Act
+			double rate = helper.Calculate(50, new TimeSpan(0, 0, 100));
+
+			// Assert
+			double expectedRate = (50.0 - 5.0) / (100d / 60);
 			Assert.IsTrue(rate == expectedRate, "rate '" + rate + "' != expectedRate '" + expectedRate + "'");
 		}
 
@@ -223,7 +270,7 @@ namespace Skyline.Protocol.Rates.Tests
 			double rate = helper.Calculate(9, new TimeSpan(0, 0, 100));
 
 			// Assert
-			double expectedRate = 20 / (100 / 60.0);
+			double expectedRate = 20 / 100d;
 			Assert.IsTrue(rate == expectedRate, "rate '" + rate + "' != expectedRate '" + expectedRate + "'");
 		}
 
