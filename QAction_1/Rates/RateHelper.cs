@@ -29,11 +29,11 @@
 		protected readonly List<T> counters = new List<T>();
 
 		[JsonConstructor]
-		private protected RateHelper(TimeSpan minDelta, TimeSpan maxDelta, RateBase ratePer)
+		private protected RateHelper(TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase)
 		{
 			this.minDelta = minDelta;
 			this.maxDelta = maxDelta;
-			this.RateBase = ratePer;
+			this.RateBase = rateBase;
 		}
 
 		/// <summary>
@@ -181,7 +181,7 @@
 	public class RateHelper32 : RateHelper<RateCounter32, uint>
 	{
 		[JsonConstructor]
-		private RateHelper32(TimeSpan minDelta, TimeSpan maxDelta, RateBase ratePer) : base(minDelta, maxDelta, ratePer) { }
+		private RateHelper32(TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase) : base(minDelta, maxDelta, rateBase) { }
 
 		/// <summary>
 		/// Calculates the rate using provided <paramref name="newCounter"/> against previous counters buffered in this <see cref="RateHelper32"/> instance.
@@ -216,13 +216,13 @@
 		/// <param name="minDelta">Minimum <see cref="System.TimeSpan"/> necessary between 2 counters when calculating a rate. Counters will be buffered until this minimum delta is met.</param>
 		/// <param name="minDelta">Maximum <see cref="System.TimeSpan"/> allowed between 2 counters when calculating a rate.</param>
 		/// <returns>A new instance of the <see cref="RateHelper32"/> class with all data found in <paramref name="rateHelperSerialized"/>.</returns>
-		public static RateHelper32 FromJsonString(string rateHelperSerialized, TimeSpan minDelta, TimeSpan maxDelta, RateBase ratePer = RateBase.Second)
+		public static RateHelper32 FromJsonString(string rateHelperSerialized, TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase = RateBase.Second)
 		{
 			ValidateMinAndMaxDeltas(minDelta, maxDelta);
 
 			return !String.IsNullOrWhiteSpace(rateHelperSerialized) ?
 				JsonConvert.DeserializeObject<RateHelper32>(rateHelperSerialized) :
-				new RateHelper32(minDelta, maxDelta, ratePer);
+				new RateHelper32(minDelta, maxDelta, rateBase);
 		}
 	}
 
@@ -233,7 +233,7 @@
 	public class RateHelper64 : RateHelper<RateCounter64, ulong>
 	{
 		[JsonConstructor]
-		private RateHelper64(TimeSpan minDelta, TimeSpan maxDelta, RateBase ratePer) : base(minDelta, maxDelta, ratePer) { }
+		private RateHelper64(TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase) : base(minDelta, maxDelta, rateBase) { }
 
 		/// <summary>
 		/// Calculates the rate using provided <paramref name="newCounter"/> against previous counters buffered in this <see cref="RateHelper64"/> instance.
@@ -267,15 +267,15 @@
 		/// <param name="rateHelperSerialized">Serialized <see cref="RateHelper64"/> instance.</param>
 		/// <param name="minDelta">Minimum <see cref="System.TimeSpan"/> necessary between 2 counters when calculating a rate. Counters will be buffered until this minimum delta is met.</param>
 		/// <param name="minDelta">Maximum <see cref="System.TimeSpan"/> allowed between 2 counters when calculating a rate.</param>
-		/// <param name="ratePer">Choose whether the rate should be calculated per second, minute, hour or day.</param>
+		/// <param name="rateBase">Choose whether the rate should be calculated per second, minute, hour or day.</param>
 		/// <returns>A new instance of the <see cref="RateHelper64"/> class with all data found in <paramref name="rateHelperSerialized"/>.</returns>
-		public static RateHelper64 FromJsonString(string rateHelperSerialized, TimeSpan minDelta, TimeSpan maxDelta, RateBase ratePer = RateBase.Second)
+		public static RateHelper64 FromJsonString(string rateHelperSerialized, TimeSpan minDelta, TimeSpan maxDelta, RateBase rateBase = RateBase.Second)
 		{
 			ValidateMinAndMaxDeltas(minDelta, maxDelta);
 
 			return !String.IsNullOrWhiteSpace(rateHelperSerialized) ?
 				JsonConvert.DeserializeObject<RateHelper64>(rateHelperSerialized) :
-				new RateHelper64(minDelta, maxDelta, ratePer);
+				new RateHelper64(minDelta, maxDelta, rateBase);
 		}
 	}
 	#endregion
@@ -283,10 +283,10 @@
 	#region RateCounters
 	public class RateCounter<U>
 	{
-		public DateTime DateTime { get; }
-		public TimeSpan TimeSpan { get; }
+		public DateTime DateTime { get; set; }
+		public TimeSpan TimeSpan { get; set; }
 
-		public U Counter { get; protected set; }
+		public U Counter { get; set; }
 
 		private protected RateCounter() { }     // Default constructor for Deserializer
 
