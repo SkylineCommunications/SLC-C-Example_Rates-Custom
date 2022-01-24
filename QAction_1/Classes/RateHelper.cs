@@ -78,16 +78,23 @@
 				Reset();
 			}
 
+			if (newRateCounter.TimeSpan < TimeSpan.Zero)
+			{
+				return faultyReturn;
+			}
+
 			// Find previous counter to be used
 			int oldCounterPos = -1;
 			TimeSpan rateTimeSpan = newRateCounter.TimeSpan;
 			for (int i = counters.Count - 1; i > -1; i--)
 			{
-				rateTimeSpan += counters[i].TimeSpan;
 				if (rateTimeSpan >= minDelta)
 				{
 					oldCounterPos = i;
+					break;
 				}
+
+				rateTimeSpan += counters[i].TimeSpan;
 			}
 
 			return Calculate(newRateCounter, oldCounterPos, rateTimeSpan, faultyReturn);
@@ -262,6 +269,8 @@
 
 		public U Counter { get; set; }
 
+		protected RateCounter() { }
+
 		internal RateCounter(DateTime dateTime)
 		{
 			DateTime = dateTime;
@@ -275,6 +284,8 @@
 
 	public class RateCounter32 : RateCounter<uint>
 	{
+		private RateCounter32() { }
+
 		internal RateCounter32(uint counter, DateTime dateTime) : base(dateTime)
 		{
 			Counter = counter;
@@ -288,6 +299,8 @@
 
 	public class RateCounter64 : RateCounter<ulong>
 	{
+		private RateCounter64() { }
+
 		internal RateCounter64(ulong counter, DateTime dateTime) : base(dateTime)
 		{
 			Counter = counter;

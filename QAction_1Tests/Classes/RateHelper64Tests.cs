@@ -15,10 +15,10 @@ namespace Skyline.Protocol.Rates.Tests
 		private readonly TimeSpan maxDelta = new TimeSpan(1, 0, 0);
 		private const double faultyReturn = -1;
 
-		#region CalculateTests
+		#region CalculateWithDateTime
 
 		[TestMethod()]
-		public void Calculate_Invalid_BackInTime()
+		public void CalculateWithDateTimeInvalid_BackInTime()
 		{
 			// Arrange
 			DateTime start = new DateTime(2000, 1, 1);
@@ -35,7 +35,7 @@ namespace Skyline.Protocol.Rates.Tests
 		}
 
 		[TestMethod()]
-		public void Calculate_Invalid_TooLate()
+		public void CalculateWithDateTimeInvalid_TooLate()
 		{
 			// Arrange
 			DateTime start = new DateTime(2000, 1, 1);
@@ -52,7 +52,7 @@ namespace Skyline.Protocol.Rates.Tests
 		}
 
 		[TestMethod()]
-		public void Calculate_Invalid_TooSoon()
+		public void CalculateWithDateTimeInvalid_TooSoon()
 		{
 			// Arrange
 			DateTime start = new DateTime(2000, 1, 1);
@@ -69,7 +69,7 @@ namespace Skyline.Protocol.Rates.Tests
 		}
 
 		[TestMethod()]
-		public void Calculate_Valid_ToOlderCounter()
+		public void CalculateWithDateTimeValid_ToOlderCounter()
 		{
 			// Arrange
 			DateTime start = new DateTime(2000, 1, 1);
@@ -90,7 +90,7 @@ namespace Skyline.Protocol.Rates.Tests
 		}
 
 		[TestMethod()]
-		public void Calculate_Valid_ToPreviousCounter()
+		public void CalculateWithDateTimeValid_ToPreviousCounter()
 		{
 			// Arrange
 			DateTime start = new DateTime(2000, 1, 1);
@@ -107,7 +107,7 @@ namespace Skyline.Protocol.Rates.Tests
 		}
 
 		[TestMethod()]
-		public void Calculate_Valid_WithOverflow()
+		public void CalculateWithDateTimeValid_WithOverflow()
 		{
 			// Arrange
 			DateTime start = new DateTime(2000, 1, 1);
@@ -117,6 +117,110 @@ namespace Skyline.Protocol.Rates.Tests
 
 			// Act
 			double rate = helper.Calculate(9, start.AddSeconds(100));
+
+			// Assert
+			double expectedRate = 20 / (100 / 60.0);
+			Assert.IsTrue(rate == expectedRate, "rate '" + rate + "' != expectedRate '" + expectedRate + "'");
+		}
+
+		#endregion
+
+		#region CalculateWithTimeSpan
+
+		[TestMethod()]
+		public void CalculateWithTimeSpanInvalid_BackInTime()
+		{
+			// Arrange
+			var helper = RateHelper64.FromJsonString("", minDelta, maxDelta);
+
+			helper.Calculate(10, new TimeSpan(0, 0, 10));
+
+			// Act
+			double rate = helper.Calculate(20, new TimeSpan(0, 0, -10));
+
+			// Assert
+			double expectedRate = faultyReturn;
+			Assert.IsTrue(rate == expectedRate, "rate '" + rate + "' != expectedRate '" + expectedRate + "'");
+		}
+
+		[TestMethod()]
+		public void CalculateWithTimeSpanInvalid_TooLate()
+		{
+			// Arrange
+			var helper = RateHelper64.FromJsonString("", minDelta, maxDelta);
+
+			helper.Calculate(10, new TimeSpan(0, 0, 10));
+
+			// Act
+			double rate = helper.Calculate(20, new TimeSpan(1, 1, 0));
+
+			// Assert
+			double expectedRate = faultyReturn;
+			Assert.IsTrue(rate == expectedRate, "rate '" + rate + "' != expectedRate '" + expectedRate + "'");
+		}
+
+		[TestMethod()]
+		public void CalculateWithTimeSpanInvalid_TooSoon()
+		{
+			// Arrange
+			var helper = RateHelper64.FromJsonString("", minDelta, maxDelta);
+
+			helper.Calculate(10, new TimeSpan(0, 0, 0));
+
+			// Act
+			double rate = helper.Calculate(20, new TimeSpan(0, 0, 5));
+
+			// Assert
+			double expectedRate = faultyReturn;
+			Assert.IsTrue(rate == expectedRate, "rate '" + rate + "' != expectedRate '" + expectedRate + "'");
+		}
+
+		[TestMethod()]
+		public void CalculateWithTimeSpanValid_ToOlderCounter()
+		{
+			// Arrange
+			var helper = RateHelper64.FromJsonString("", minDelta, maxDelta);
+
+			helper.Calculate(5, new TimeSpan(0, 0, 0));
+			helper.Calculate(10, new TimeSpan(0, 0, 90));   // 1m30s
+			helper.Calculate(20, new TimeSpan(0, 0, 1));    // 1m31s
+			helper.Calculate(30, new TimeSpan(0, 0, 1));    // 1m32s
+			helper.Calculate(40, new TimeSpan(0, 0, 1));    // 1m33s
+
+			// Act
+			double rate = helper.Calculate(50, new TimeSpan(0, 0, 7));  // 1m40s
+
+			// Assert
+			double expectedRate = (50.0 - 5.0) / ((7 + 1 + 1 + 1 + 90) / 60.0);
+			Assert.IsTrue(rate == expectedRate, "rate '" + rate + "' != expectedRate '" + expectedRate + "'");
+		}
+
+		[TestMethod()]
+		public void CalculateWithTimeSpanValid_ToPreviousCounter()
+		{
+			// Arrange
+			var helper = RateHelper64.FromJsonString("", minDelta, maxDelta);
+
+			helper.Calculate(5, new TimeSpan(0, 0, 10));
+
+			// Act
+			double rate = helper.Calculate(50, new TimeSpan(0, 0, 100));
+
+			// Assert
+			double expectedRate = (50.0 - 5.0) / (100 / 60.0);
+			Assert.IsTrue(rate == expectedRate, "rate '" + rate + "' != expectedRate '" + expectedRate + "'");
+		}
+
+		[TestMethod()]
+		public void CalculateWithTimeSpanValid_WithOverflow()
+		{
+			// Arrange
+			var helper = RateHelper64.FromJsonString("", minDelta, maxDelta);
+
+			helper.Calculate(UInt64.MaxValue - 10, new TimeSpan(0, 0, 0));
+
+			// Act
+			double rate = helper.Calculate(9, new TimeSpan(0, 0, 100));
 
 			// Assert
 			double expectedRate = 20 / (100 / 60.0);
