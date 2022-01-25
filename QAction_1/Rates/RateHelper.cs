@@ -110,17 +110,17 @@
 		{
 			if (minDelta < TimeSpan.Zero)
 			{
-				throw new ArgumentException("minDeta can't be a negative TimeSpan", "minDelta");
+				throw new ArgumentException("minDelta is a negative TimeSpan.", "minDelta");
 			}
 
 			if (maxDelta < TimeSpan.Zero)
 			{
-				throw new ArgumentException("maxDelta can't be a negative TimeSpan", "maxDelta");
+				throw new ArgumentException("maxDelta is a negative TimeSpan.", "maxDelta");
 			}
 
 			if (maxDelta <= minDelta)
 			{
-				throw new ArgumentException("maxDelta should be bigger than minDelta");
+				throw new ArgumentException("minDelta is bigger than maxDelta.");
 			}
 		}
 
