@@ -306,9 +306,9 @@ Any inquiries can be addressed to:
 							<MajorVersion id="0">
 								<MinorVersions>
 									<MinorVersion id="1">
-										<Date>2021-12-02</Date>
+										<Date>2022-01-25</Date>
 										<Provider>
-											<Author>PAL</Author>
+											<Author>SVD</Author>
 											<Company>Skyline Communications</Company>
 										</Provider>
 										<Changes>
