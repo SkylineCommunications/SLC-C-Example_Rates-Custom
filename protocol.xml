@@ -83,7 +83,7 @@ Any inquiries can be addressed to:
 			<ArrayOptions index="0">
 				<ColumnOption idx="0" pid="1001" type="retrieved" options=""/>
 				<ColumnOption idx="1" pid="1002" type="retrieved" options=";save" />
-				<ColumnOption idx="2" pid="1003" type="retrieved" options=";disableHeaderSum;disableHistogram;disableHeatmap" />
+				<ColumnOption idx="2" pid="1003" type="retrieved" options=";save;disableHeaderSum;disableHistogram;disableHeatmap" />
 				<ColumnOption idx="3" pid="1004" type="retrieved" options=";disableHeaderSum;disableHistogram;disableHeatmap" />
 				<ColumnOption idx="4" pid="1005" type="retrieved" options=";save" />
 			</ArrayOptions>
@@ -325,7 +325,7 @@ Any inquiries can be addressed to:
 											<Company>Skyline Communications</Company>
 										</Provider>
 										<Changes>
-											<Fix>Counter and rate columns were unnecessarily saved</Fix>
+											<Fix>Rate column was unnecessarily saved.</Fix>
 										</Changes>
 										<References>
 											<TaskId>137922</TaskId>

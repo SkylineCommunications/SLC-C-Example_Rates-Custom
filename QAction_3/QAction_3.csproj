@@ -73,14 +73,14 @@
     <Content Include=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\StreamsHelper.cs" />
+    <Compile Include="Streams\StreamsHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QAction_3.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties DisLinkedXmlFile="..\protocol.xml" DisProjectType="qactionProject" DisLinkId="3" />
+      <UserProperties DisLinkId="3" DisProjectType="qactionProject" DisLinkedXmlFile="..\protocol.xml" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

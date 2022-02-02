@@ -8,7 +8,7 @@
 
 	public static class ProtocolExtension
 	{
-		public static void SetColumns(this SLProtocol protocol, Dictionary<object, List<object>> setColumnsData, DateTime dateTime = default(DateTime))
+		public static void SetColumns(this SLProtocol protocol, Dictionary<object, List<object>> setColumnsData, DateTime dateTime = default)
 		{
 			// Requires Main 10.0.0 [CU?] or Feature 9.6.6 [CU?] (see RN 23815)
 			int rowCount = setColumnsData.ElementAt(0).Value.Count;
@@ -20,7 +20,7 @@
 			}
 
 			object[] setColumnPids = new object[setColumnsData.Count + 1];
-			object[] setColumnOptions = dateTime == default(DateTime) ? new object[] { true } : new object[] { true, dateTime };
+			object[] setColumnOptions = dateTime == default ? new object[] { true } : new object[] { true, dateTime };
 
 			object[] setColumnValues = new object[setColumnsData.Count];
 

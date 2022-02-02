@@ -70,6 +70,7 @@
 				if (rateTimeSpan >= minDelta)
 				{
 					oldCounterPos = i;
+					break;
 				}
 			}
 
