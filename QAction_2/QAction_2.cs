@@ -41,7 +41,7 @@ public static class QAction
 				Streamsindex_1001 = 1,
 				Streamsdrescription_1002 = "Constantly growing counter",
 				Streamsoctetscounter_1003 = 0,
-				Streamsbitrate_1004 = 0,
+				Streamsbitrate_1004 = -1,
 				Streamsbitratedata_1005 = String.Empty
 			}.ToObjectArray(),
 			new StreamsQActionRow
@@ -49,7 +49,7 @@ public static class QAction
 				Streamsindex_1001 = 2,
 				Streamsdrescription_1002 = "Randomly ever growing counter",
 				Streamsoctetscounter_1003 = 0,
-				Streamsbitrate_1004 = 0,
+				Streamsbitrate_1004 = -1,
 				Streamsbitratedata_1005 = String.Empty
 			}.ToObjectArray(),
 			new StreamsQActionRow
@@ -57,7 +57,7 @@ public static class QAction
 				Streamsindex_1001 = 3,
 				Streamsdrescription_1002 = "Randomly growing counters with regular reset",
 				Streamsoctetscounter_1003 = 0,
-				Streamsbitrate_1004 = 0,
+				Streamsbitrate_1004 = -1,
 				Streamsbitratedata_1005 = String.Empty
 			}.ToObjectArray(),
 			new StreamsQActionRow
@@ -65,7 +65,7 @@ public static class QAction
 				Streamsindex_1001 = 4,
 				Streamsdrescription_1002 = "Completely random counters",
 				Streamsoctetscounter_1003 = 0,
-				Streamsbitrate_1004 = 0,
+				Streamsbitrate_1004 = -1,
 				Streamsbitratedata_1005 = String.Empty
 			}.ToObjectArray(),
 		};
