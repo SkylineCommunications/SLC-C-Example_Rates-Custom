@@ -47,7 +47,7 @@ Any inquiries can be addressed to:
 <Protocol xmlns="http://www.skyline.be/protocol">
 	<Name>SLC SDF Rates - Custom</Name>
 	<Description>SLC SDF Rates - Custom DataMiner driver</Description>
-	<Version>1.0.0.1</Version>
+	<Version>1.0.0.2</Version>
 	<IntegrationID>DMS-DRV-0000</IntegrationID>
 	<Provider>Skyline Communications</Provider>
 	<Vendor>Skyline</Vendor>
@@ -83,8 +83,8 @@ Any inquiries can be addressed to:
 			<ArrayOptions index="0">
 				<ColumnOption idx="0" pid="1001" type="retrieved" options=""/>
 				<ColumnOption idx="1" pid="1002" type="retrieved" options=";save" />
-				<ColumnOption idx="2" pid="1003" type="retrieved" options=";save;disableHeaderSum;disableHistogram;disableHeatmap" />
-				<ColumnOption idx="3" pid="1004" type="retrieved" options=";save;disableHeaderSum;disableHistogram;disableHeatmap" />
+				<ColumnOption idx="2" pid="1003" type="retrieved" options=";disableHeaderSum;disableHistogram;disableHeatmap" />
+				<ColumnOption idx="3" pid="1004" type="retrieved" options=";disableHeaderSum;disableHistogram;disableHeatmap" />
 				<ColumnOption idx="4" pid="1005" type="retrieved" options=";save" />
 			</ArrayOptions>
 			<Information>
@@ -313,6 +313,19 @@ Any inquiries can be addressed to:
 										</Provider>
 										<Changes>
 											<NewFeature>Initial version</NewFeature>
+										</Changes>
+										<References>
+											<TaskId>137922</TaskId>
+										</References>
+									</MinorVersion>
+									<MinorVersion id="2" basedOn="1.0.0.1">
+										<Date>2022-02-02</Date>
+										<Provider>
+											<Author>SVD</Author>
+											<Company>Skyline Communications</Company>
+										</Provider>
+										<Changes>
+											<Fix>Counter and rate columns were unnecessarily saved</Fix>
 										</Changes>
 										<References>
 											<TaskId>137922</TaskId>
