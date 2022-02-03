@@ -50,8 +50,10 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Rates\RateHelper32Tests.cs" />
-    <Compile Include="Rates\RateHelper64Tests.cs" />
+    <Compile Include="Rates\Rate32OnTimesTests.cs" />
+    <Compile Include="Rates\Rate32OnDatesTests.cs" />
+    <Compile Include="Rates\Rate64OnDatesTests.cs" />
+    <Compile Include="Rates\Rate64OnTimesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

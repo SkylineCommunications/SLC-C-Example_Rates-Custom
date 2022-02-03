@@ -38,35 +38,43 @@ public static class QAction
 		{
 			new StreamsQActionRow
 			{
-				Streamsindex_1001 = 1,
-				Streamsdrescription_1002 = "Constantly growing counter",
-				Streamsoctetscounter_1003 = 0,
-				Streamsbitrate_1004 = -1,
-				Streamsbitratedata_1005 = String.Empty
+				Streamsindex = 1,
+				Streamsdrescription = "Constantly growing counter",
+				Streamsoctetscounter = 0,
+				Streamsbitrateondates = -1,
+				Streamsbitrateondatesdata = String.Empty,
+				Streamsbitrateontimes = -1,
+				Streamsbitrateontimesdata = String.Empty,
 			}.ToObjectArray(),
 			new StreamsQActionRow
 			{
-				Streamsindex_1001 = 2,
-				Streamsdrescription_1002 = "Randomly ever growing counter",
-				Streamsoctetscounter_1003 = 0,
-				Streamsbitrate_1004 = -1,
-				Streamsbitratedata_1005 = String.Empty
+				Streamsindex = 2,
+				Streamsdrescription = "Randomly ever growing counter",
+				Streamsoctetscounter = 0,
+				Streamsbitrateondates = -1,
+				Streamsbitrateondatesdata = String.Empty,
+				Streamsbitrateontimes = -1,
+				Streamsbitrateontimesdata = String.Empty,
 			}.ToObjectArray(),
 			new StreamsQActionRow
 			{
-				Streamsindex_1001 = 3,
-				Streamsdrescription_1002 = "Randomly growing counters with regular reset",
-				Streamsoctetscounter_1003 = 0,
-				Streamsbitrate_1004 = -1,
-				Streamsbitratedata_1005 = String.Empty
+				Streamsindex = 3,
+				Streamsdrescription = "Randomly growing counters with regular reset",
+				Streamsoctetscounter = 0,
+				Streamsbitrateondates = -1,
+				Streamsbitrateondatesdata = String.Empty,
+				Streamsbitrateontimes = -1,
+				Streamsbitrateontimesdata = String.Empty,
 			}.ToObjectArray(),
 			new StreamsQActionRow
 			{
-				Streamsindex_1001 = 4,
-				Streamsdrescription_1002 = "Completely random counters",
-				Streamsoctetscounter_1003 = 0,
-				Streamsbitrate_1004 = -1,
-				Streamsbitratedata_1005 = String.Empty
+				Streamsindex = 4,
+				Streamsdrescription = "Completely random counters",
+				Streamsoctetscounter = 0,
+				Streamsbitrateondates = -1,
+				Streamsbitrateondatesdata = String.Empty,
+				Streamsbitrateontimes = -1,
+				Streamsbitrateontimesdata = String.Empty,
 			}.ToObjectArray(),
 		};
 

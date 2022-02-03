@@ -74,7 +74,7 @@ Any inquiries can be addressed to:
 			<Description>Dummy For QA3</Description>
 			<Type>dummy</Type>
 		</Param>
-
+		
 		<!-- Streams Table -->
 		<Param id="1000">
 			<Name>streams</Name>
@@ -86,6 +86,8 @@ Any inquiries can be addressed to:
 				<ColumnOption idx="2" pid="1003" type="retrieved" options=";save;disableHeaderSum;disableHistogram;disableHeatmap" />
 				<ColumnOption idx="3" pid="1004" type="retrieved" options=";disableHeaderSum;disableHistogram;disableHeatmap" />
 				<ColumnOption idx="4" pid="1005" type="retrieved" options=";save" />
+				<ColumnOption idx="5" pid="1006" type="retrieved" options=";disableHeaderSum;disableHistogram;disableHeatmap" />
+				<ColumnOption idx="6" pid="1007" type="retrieved" options=";save" />
 			</ArrayOptions>
 			<Information>
 				<Subtext>Streams Table</Subtext>
@@ -101,7 +103,7 @@ Any inquiries can be addressed to:
 				</Positions>
 			</Display>
 			<Measurement>
-				<Type options="tab=columns:1001|0-1002|1-1003|2-1005|4-1004|3,width:97-275-120-0-120,sort:STRING-STRING-INT-STRING-INT,lines:25,filter:true">table</Type>
+				<Type options="tab=columns:1001|0-1002|1-1003|2-1005|4-1004|3-1007|6-1006|5,width:97-275-130-0-140-0-140,sort:STRING-STRING-INT-STRING-INT-STRING-INT,lines:25,filter:true">table</Type>
 			</Measurement>
 		</Param>
 		<Param id="1001" trending="false">
@@ -171,11 +173,11 @@ Any inquiries can be addressed to:
 			</Measurement>
 		</Param>
 		<Param id="1004" trending="true">
-			<Name>streamsBitRate</Name>
-			<Description>Bit Rate (Streams)</Description>
+			<Name>streamsBitRateOnDates</Name>
+			<Description>Bit Rate on Dates (Streams)</Description>
 			<Type>read</Type>
 			<Information>
-				<Subtext>The calculated bit rate based on the octets counter for the stream.</Subtext>
+				<Subtext>The calculated bit rate based on the octets counter and DateTime for the stream.</Subtext>
 			</Information>
 			<Interprete>
 				<RawType>numeric text</RawType>
@@ -206,11 +208,65 @@ Any inquiries can be addressed to:
 			</Measurement>
 		</Param>
 		<Param id="1005" trending="false">
-			<Name>streamsBitRateData</Name>
-			<Description>Bit Rate Data (Streams)</Description>
+			<Name>streamsBitRateOnDatesData</Name>
+			<Description>Bit Rate on Dates Data (Streams)</Description>
 			<Type>read</Type>
 			<Information>
-				<Subtext>Used as a buffer parameter containing data necessary for bit rate calculations.</Subtext>
+				<Subtext>Used as a buffer parameter containing data necessary for bit rate calculations based on DateTime.</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		<Param id="1006" trending="true">
+			<Name>streamsBitRateOnTimes</Name>
+			<Description>Bit Rate on Times (Streams)</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>The calculated bit rate based on the octets counter and TimeSpan for the stream.</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+				<Exceptions>
+					<Exception id="1" value="-1">
+						<Display state="disabled">N/A</Display>
+						<Value>-1</Value>
+					</Exception>
+				</Exceptions>
+			</Interprete>
+			<!-- SuppressValidator 2.5.1 Thresholds fully depending on users -->
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
+			<!-- /SuppressValidator 2.5.1 -->
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Decimals>3</Decimals>
+				<Range>
+					<Low>0</Low>
+				</Range>
+				<Units>bps</Units>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="1007" trending="false">
+			<Name>streamsBitRateOnTimesData</Name>
+			<Description>Bit Rate on Times Data (Streams)</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>Used as a buffer parameter containing data necessary for bit rate calculations based on TimeSpan.</Subtext>
 			</Information>
 			<Interprete>
 				<RawType>other</RawType>
