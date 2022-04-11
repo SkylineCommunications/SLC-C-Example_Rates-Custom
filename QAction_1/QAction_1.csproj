@@ -78,8 +78,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ProtocolExtensions.cs" />
-    <Compile Include="Rates\RateHelper.cs" />
-    <Compile Include="SafeConverters\SafeConverters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

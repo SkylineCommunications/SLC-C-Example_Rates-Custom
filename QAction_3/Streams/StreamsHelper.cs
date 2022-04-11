@@ -3,10 +3,10 @@
 	using System;
 	using System.Collections.Generic;
 
+	using Skyline.DataMiner.Library.Common.Rates;
+	using Skyline.DataMiner.Library.Common.SafeConverters;
 	using Skyline.DataMiner.Scripting;
 	using Skyline.Protocol.Extensions;
-	using Skyline.Protocol.Rates;
-	using Skyline.Protocol.SafeConverters;
 
 	public class StreamsHelper
 	{
@@ -44,12 +44,12 @@
 			setter.SetColumnsData[Parameter.Streams.Pid.streamsoctetscounter].Add(inOctets);
 
 			// Based on DateTime (typically used with HTTP, serial...)
-			Rate64OnDates rate64OnDatesHelper = Rate64OnDates.FromJsonString(Convert.ToString(getter.InOctetsRateOnDatesData[getPosition]), minDelta, maxDelta);
+			Rate64OnDateTime rate64OnDatesHelper = Rate64OnDateTime.FromJsonString(Convert.ToString(getter.InOctetsRateOnDatesData[getPosition]), minDelta, maxDelta);
 			setter.SetColumnsData[Parameter.Streams.Pid.streamsbitrateondates].Add(rate64OnDatesHelper.Calculate(inBytes, now));
 			setter.SetColumnsData[Parameter.Streams.Pid.streamsbitrateondatesdata].Add(rate64OnDatesHelper.ToJsonString());
 
 			// Based on TimeSpan (typically used with SNMP)
-			Rate64OnTimes rate64OnTimesHelper = Rate64OnTimes.FromJsonString(Convert.ToString(getter.InOctetsRateOnTimesData[getPosition]), minDelta, maxDelta);
+			Rate64OnTimeSpan rate64OnTimesHelper = Rate64OnTimeSpan.FromJsonString(Convert.ToString(getter.InOctetsRateOnTimesData[getPosition]), minDelta, maxDelta);
 			setter.SetColumnsData[Parameter.Streams.Pid.streamsbitrateontimes].Add(rate64OnTimesHelper.Calculate(inBytes, new TimeSpan(0, 0, 10)));
 			setter.SetColumnsData[Parameter.Streams.Pid.streamsbitrateontimesdata].Add(rate64OnTimesHelper.ToJsonString());
 		}
@@ -73,14 +73,16 @@
 
 			internal void Load()
 			{
-				var tableData = (object[])protocol.NotifyProtocol(321, Parameter.Streams.tablePid, new uint[] {
-					Parameter.Streams.Idx.streamsindex,
-					Parameter.Streams.Idx.streamsoctetscounter,
-					Parameter.Streams.Idx.streamsbitrateondatesdata,
-					Parameter.Streams.Idx.streamsbitrateontimesdata, });
+				var tableData = (object[])protocol.NotifyProtocol(321, Parameter.Streams.tablePid, new uint[]
+					{
+						Parameter.Streams.Idx.streamsindex,
+						Parameter.Streams.Idx.streamsoctetscounter,
+						Parameter.Streams.Idx.streamsbitrateondatesdata,
+						Parameter.Streams.Idx.streamsbitrateontimesdata,
+					});
 
 				Keys = (object[])tableData[0];
-				InOctets = FillOctets((object[])tableData[1]);
+				InOctets = BuildOctectsColumn((object[])tableData[1]);
 				InOctetsRateOnDatesData = (object[])tableData[2];
 				InOctetsRateOnTimesData = (object[])tableData[3];
 			}
@@ -89,8 +91,8 @@
 			/// Method used to simulate device data with random data.
 			/// </summary>
 			/// <param name="previous">Previous octets values used to calculate next ones.</param>
-			/// <returns></returns>
-			private static object[] FillOctets(object[] previous)
+			/// <returns>New octets values.</returns>
+			private static object[] BuildOctectsColumn(object[] previous)
 			{
 				Random random = new Random();
 				ulong[] predifined = new ulong[] { 48, 24, 96, 128, 246, 8 };
@@ -113,24 +115,22 @@
 
 		private class StreamsSetter
 		{
-			internal readonly Dictionary<object, List<object>> SetColumnsData;
-
 			private readonly SLProtocol protocol;
 
 			internal StreamsSetter(SLProtocol protocol)
 			{
 				this.protocol = protocol;
-
-				SetColumnsData = new Dictionary<object, List<object>>
-				{
-					{ Parameter.Streams.tablePid, new List<object>() },
-					{ Parameter.Streams.Pid.streamsoctetscounter, new List<object>() },
-					{ Parameter.Streams.Pid.streamsbitrateondates, new List<object>() },
-					{ Parameter.Streams.Pid.streamsbitrateondatesdata, new List<object>() },
-					{ Parameter.Streams.Pid.streamsbitrateontimes, new List<object>() },
-					{ Parameter.Streams.Pid.streamsbitrateontimesdata, new List<object>() },
-				};
 			}
+
+			internal Dictionary<object, List<object>> SetColumnsData { get; } = new Dictionary<object, List<object>>
+			{
+				{ Parameter.Streams.tablePid, new List<object>() },
+				{ Parameter.Streams.Pid.streamsoctetscounter, new List<object>() },
+				{ Parameter.Streams.Pid.streamsbitrateondates, new List<object>() },
+				{ Parameter.Streams.Pid.streamsbitrateondatesdata, new List<object>() },
+				{ Parameter.Streams.Pid.streamsbitrateontimes, new List<object>() },
+				{ Parameter.Streams.Pid.streamsbitrateontimesdata, new List<object>() },
+			};
 
 			internal void SetColumns()
 			{
