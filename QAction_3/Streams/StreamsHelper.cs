@@ -41,8 +41,6 @@
 			ulong inOctets = SafeConvert.ToUInt64(Convert.ToDouble(getter.InOctets[getPosition]));
 			ulong inBytes = inOctets / 8;
 
-			
-
 			setter.SetColumnsData[Parameter.Streams.Pid.streamsoctetscounter].Add(inOctets);
 
 			// Based on DateTime (typically used with HTTP, serial...)

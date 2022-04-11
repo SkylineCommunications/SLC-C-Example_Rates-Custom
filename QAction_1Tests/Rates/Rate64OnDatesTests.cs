@@ -16,7 +16,7 @@ namespace Skyline.Protocol.Rates.Tests
 		#region Calculate
 
 		[TestMethod()]
-		public void CalculateInvalid_BackInTime()
+		public void Calculate_Invalid_BackInTime()
 		{
 			// Arrange
 			DateTime start = new DateTime(2000, 1, 1);
@@ -33,7 +33,7 @@ namespace Skyline.Protocol.Rates.Tests
 		}
 
 		[TestMethod()]
-		public void CalculateInvalid_TooLate()
+		public void Calculate_Invalid_TooLate()
 		{
 			// Arrange
 			DateTime start = new DateTime(2000, 1, 1);
@@ -50,7 +50,7 @@ namespace Skyline.Protocol.Rates.Tests
 		}
 
 		[TestMethod()]
-		public void CalculateInvalid_TooSoon()
+		public void Calculate_Invalid_TooSoon()
 		{
 			// Arrange
 			DateTime start = new DateTime(2000, 1, 1);
@@ -67,7 +67,7 @@ namespace Skyline.Protocol.Rates.Tests
 		}
 
 		[TestMethod()]
-		public void CalculateValid_ToOlderCounter()
+		public void Calculate_Valid_ToOlderCounter()
 		{
 			// Arrange
 			DateTime start = new DateTime(2000, 1, 1);
@@ -94,7 +94,7 @@ namespace Skyline.Protocol.Rates.Tests
 		}
 
 		[TestMethod()]
-		public void CalculateValid_ToPreviousCounter()
+		public void Calculate_Valid_ToPreviousCounter()
 		{
 			// Arrange
 			DateTime start = new DateTime(2000, 1, 1);
@@ -115,7 +115,7 @@ namespace Skyline.Protocol.Rates.Tests
 		}
 
 		[TestMethod()]
-		public void CalculateValid_WithOverflow()
+		public void Calculate_Valid_WithOverflow()
 		{
 			// Arrange
 			DateTime start = new DateTime(2000, 1, 1);

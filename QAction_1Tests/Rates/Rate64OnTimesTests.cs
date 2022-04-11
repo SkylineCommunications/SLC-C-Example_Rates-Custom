@@ -16,7 +16,7 @@ namespace Skyline.Protocol.Rates.Tests
 		#region Calculate
 
 		[TestMethod()]
-		public void CalculateInvalid_BackInTime()
+		public void Calculate_Invalid_BackInTime()
 		{
 			// Arrange
 			var helper = Rate64OnTimes.FromJsonString("", minDelta, maxDelta);
@@ -32,7 +32,7 @@ namespace Skyline.Protocol.Rates.Tests
 		}
 
 		[TestMethod()]
-		public void CalculateInvalid_TooLate()
+		public void Calculate_Invalid_TooLate()
 		{
 			// Arrange
 			var helper = Rate64OnTimes.FromJsonString("", minDelta, maxDelta);
@@ -48,7 +48,7 @@ namespace Skyline.Protocol.Rates.Tests
 		}
 
 		[TestMethod()]
-		public void CalculatInvalid_TooSoon()
+		public void Calculate_Invalid_TooSoon()
 		{
 			// Arrange
 			var helper = Rate64OnTimes.FromJsonString("", minDelta, maxDelta);
@@ -64,7 +64,7 @@ namespace Skyline.Protocol.Rates.Tests
 		}
 
 		[TestMethod()]
-		public void CalculateValid_ToOlderCounter()
+		public void Calculate_Valid_ToOlderCounter()
 		{
 			// Arrange
 			var helper = Rate64OnTimes.FromJsonString("", minDelta, maxDelta);
@@ -90,7 +90,7 @@ namespace Skyline.Protocol.Rates.Tests
 		}
 
 		[TestMethod()]
-		public void CalculateValid_ToPreviousCounter()
+		public void Calculate_Valid_ToPreviousCounter()
 		{
 			// Arrange
 			var helper = Rate64OnTimes.FromJsonString("", minDelta, maxDelta);
@@ -110,7 +110,7 @@ namespace Skyline.Protocol.Rates.Tests
 		}
 
 		[TestMethod()]
-		public void CalculateValid_ToPreviousCounter_PerDay()
+		public void Calculate_Valid_ToPreviousCounter_PerDay()
 		{
 			// Arrange
 			var helper = Rate64OnTimes.FromJsonString("", minDelta, maxDelta, RateBase.Day);
@@ -128,7 +128,7 @@ namespace Skyline.Protocol.Rates.Tests
 		}
 
 		[TestMethod()]
-		public void CalculateValid_ToPreviousCounter_PerHour()
+		public void Calculate_Valid_ToPreviousCounter_PerHour()
 		{
 			// Arrange
 			var helper = Rate64OnTimes.FromJsonString("", minDelta, maxDelta, RateBase.Hour);
@@ -144,7 +144,7 @@ namespace Skyline.Protocol.Rates.Tests
 		}
 
 		[TestMethod()]
-		public void CalculateValid_ToPreviousCounter_PerMinute()
+		public void Calculate_Valid_ToPreviousCounter_PerMinute()
 		{
 			// Arrange
 			var helper = Rate64OnTimes.FromJsonString("", minDelta, maxDelta, RateBase.Minute);
@@ -160,7 +160,7 @@ namespace Skyline.Protocol.Rates.Tests
 		}
 
 		[TestMethod()]
-		public void CalculateValid_WithOverflow()
+		public void Calculate_Valid_WithOverflow()
 		{
 			// Arrange
 			var helper = Rate64OnTimes.FromJsonString("", minDelta, maxDelta);
