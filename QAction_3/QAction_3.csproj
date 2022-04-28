@@ -79,8 +79,8 @@
     <Compile Include="QAction_3.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Skyline.DataMiner.Library.Protocol">
-      <Version>1.2.1.2-gerritFDCP179881RateHelpersV2.12</Version>
+    <PackageReference Include="SLC.Lib.Protocol">
+      <Version>1.2.1.2-gerritFDCP179881RateHelpersV2.15</Version>
     </PackageReference>
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.1.118</Version>
@@ -94,7 +94,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties DisLinkedXmlFile="..\protocol.xml" DisProjectType="qactionProject" DisLinkId="3" />
+      <UserProperties DisLinkId="3" DisProjectType="qactionProject" DisLinkedXmlFile="..\protocol.xml" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
