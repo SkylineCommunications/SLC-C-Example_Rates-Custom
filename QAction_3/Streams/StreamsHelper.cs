@@ -99,15 +99,20 @@
 
 				ulong constantGrow = 24;
 				ulong randomGrow = Convert.ToUInt64(random.Next(24));
-				ulong randomPredifined = predifined[random.Next(predifined.Length - 1)];
+				ulong randomPredefined = predifined[random.Next(predifined.Length - 1)];
 
-				var octetsValues = new List<object>
+				List<object> octetsValues;
+				unchecked
 				{
-					Convert.ToUInt64(previous[0]) + constantGrow > UInt64.MaxValue ? 0 : Convert.ToUInt64(previous[0]) + constantGrow,
-					Convert.ToUInt64(previous[1]) + randomGrow > UInt64.MaxValue ? 0 : Convert.ToUInt64(previous[1]) + randomGrow,
-					Convert.ToUInt64(previous[2]) + randomPredifined > UInt64.MaxValue ? 0 : Convert.ToUInt64(previous[2]) + randomPredifined,
-					random.Next(UInt16.MaxValue),
-				};
+					// unchecked is there to make sure that when overflowing, a wrap around is happening instead of throwing an OverflowException
+					octetsValues = new List<object>
+					{
+						Convert.ToUInt64(previous[0]) + constantGrow,
+						Convert.ToUInt64(previous[1]) + randomGrow,
+						Convert.ToUInt64(previous[2]) + randomPredefined,
+						random.Next(UInt16.MaxValue),
+					};
+				}
 
 				return octetsValues.ToArray();
 			}

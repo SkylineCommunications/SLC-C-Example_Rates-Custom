@@ -80,7 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="SLC.Lib.Protocol">
-      <Version>1.2.1.2-gerritFDCP179881RateHelpersV2.15</Version>
+      <Version>1.2.1.2-gerritFDCP179881RateHelpersV2.16</Version>
     </PackageReference>
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.1.118</Version>
@@ -94,7 +94,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties DisLinkId="3" DisProjectType="qactionProject" DisLinkedXmlFile="..\protocol.xml" />
+      <UserProperties DisLinkedXmlFile="..\protocol.xml" DisProjectType="qactionProject" DisLinkId="3" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
