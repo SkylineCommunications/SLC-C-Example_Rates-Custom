@@ -55,7 +55,7 @@ Any inquiries can be addressed to:
 	<DeviceOID>998</DeviceOID>
 	<ElementType>Training Example</ElementType>
 	<Type relativeTimers="true">virtual</Type>
-	<Display defaultPage="General" pageOrder="General" wideColumnPages="General"/>
+	<Display defaultPage="Standalone" pageOrder="Standalone;Table" wideColumnPages="Table"/>
 	<SNMP includepages="true">auto</SNMP>
 
 	<Compliancies>
@@ -69,15 +69,124 @@ Any inquiries can be addressed to:
 			<Description>After Startup</Description>
 			<Type>dummy</Type>
 		</Param>
-		<Param id="3">
-			<Name>dummyForQA3</Name>
-			<Description>Dummy For QA3</Description>
+		
+		<Param id="90">
+			<Name>CounterProcessingQAction</Name>
+			<Description>Counter Processing QAction</Description>
 			<Type>dummy</Type>
+		</Param>
+		<Param id="100" trending="true">
+			<Name>Counter</Name>
+			<Description>Counter</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>A standalone octets counter.</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<!-- SuppressValidator 2.5.1 Thresholds fully depending on users -->
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
+			<!-- /SuppressValidator 2.5.1 -->
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Units>Octets</Units>
+				<Range>
+					<Low>0</Low>
+				</Range>
+				<Positions>
+					<Position>
+						<Page>Standalone</Page>
+						<Column>0</Column>
+						<Row>0</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="101" trending="true">
+			<Name>CounterRateOnDates</Name>
+			<Description>Counter Rate on Dates</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>The calculated counter rate based on DateTime.</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+				<Exceptions>
+					<Exception id="1" value="-1">
+						<Display state="disabled">N/A</Display>
+						<Value>-1</Value>
+					</Exception>
+				</Exceptions>
+			</Interprete>
+			<!-- SuppressValidator 2.5.1 Thresholds fully depending on users -->
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
+			<!-- /SuppressValidator 2.5.1 -->
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Decimals>3</Decimals>
+				<Range>
+					<Low>0</Low>
+				</Range>
+				<Units>bps</Units>
+				<Positions>
+					<Position>
+						<Page>Standalone</Page>
+						<Column>0</Column>
+						<Row>2</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="102" trending="false">
+			<Name>CounterRateOnDatesData</Name>
+			<Description>Counter Rate on Dates Data</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>Used as a buffer parameter containing data necessary for counter rate calculations based on DateTime.</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>Standalone</Page>
+						<Column>0</Column>
+						<Row>3</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<Measurement>
+				<Type lines="10">string</Type>
+			</Measurement>
 		</Param>
 		
 		<!-- Streams Table -->
+		<Param id="990">
+			<Name>StreamsProcessingQAction</Name>
+			<Description>Streams Processing QAction</Description>
+			<Type>dummy</Type>
+		</Param>
 		<Param id="1000">
-			<Name>streams</Name>
+			<Name>Streams</Name>
 			<Description>Streams</Description>
 			<Type>array</Type>
 			<ArrayOptions index="0">
@@ -96,7 +205,7 @@ Any inquiries can be addressed to:
 				<RTDisplay>true</RTDisplay>
 				<Positions>
 					<Position>
-						<Page>General</Page>
+						<Page>Table</Page>
 						<Column>0</Column>
 						<Row>0</Row>
 					</Position>
@@ -107,7 +216,7 @@ Any inquiries can be addressed to:
 			</Measurement>
 		</Param>
 		<Param id="1001" trending="false">
-			<Name>streamsIndex</Name>
+			<Name>StreamsIndex</Name>
 			<Description>Index [IDX] (Streams)</Description>
 			<Type>read</Type>
 			<Information>
@@ -126,7 +235,7 @@ Any inquiries can be addressed to:
 			</Measurement>
 		</Param>
 		<Param id="1002" trending="false">
-			<Name>streamsDrescription</Name>
+			<Name>StreamsDrescription</Name>
 			<Description>Description (Streams)</Description>
 			<Type>read</Type>
 			<Information>
@@ -145,7 +254,7 @@ Any inquiries can be addressed to:
 			</Measurement>
 		</Param>
 		<Param id="1003" trending="true">
-			<Name>streamsOctetsCounter</Name>
+			<Name>StreamsOctetsCounter</Name>
 			<Description>Octets Counter (Streams)</Description>
 			<Type>read</Type>
 			<Information>
@@ -173,7 +282,7 @@ Any inquiries can be addressed to:
 			</Measurement>
 		</Param>
 		<Param id="1004" trending="true">
-			<Name>streamsBitRateOnDates</Name>
+			<Name>StreamsBitRateOnDates</Name>
 			<Description>Bit Rate on Dates (Streams)</Description>
 			<Type>read</Type>
 			<Information>
@@ -208,7 +317,7 @@ Any inquiries can be addressed to:
 			</Measurement>
 		</Param>
 		<Param id="1005" trending="false">
-			<Name>streamsBitRateOnDatesData</Name>
+			<Name>StreamsBitRateOnDatesData</Name>
 			<Description>Bit Rate on Dates Data (Streams)</Description>
 			<Type>read</Type>
 			<Information>
@@ -227,7 +336,7 @@ Any inquiries can be addressed to:
 			</Measurement>
 		</Param>
 		<Param id="1006" trending="true">
-			<Name>streamsBitRateOnTimes</Name>
+			<Name>StreamsBitRateOnTimes</Name>
 			<Description>Bit Rate on Times (Streams)</Description>
 			<Type>read</Type>
 			<Information>
@@ -262,7 +371,7 @@ Any inquiries can be addressed to:
 			</Measurement>
 		</Param>
 		<Param id="1007" trending="false">
-			<Name>streamsBitRateOnTimesData</Name>
+			<Name>StreamsBitRateOnTimesData</Name>
 			<Description>Bit Rate on Times Data (Streams)</Description>
 			<Type>read</Type>
 			<Information>
@@ -287,8 +396,10 @@ Any inquiries can be addressed to:
 		</QAction>
 		<QAction id="2" name="After Startup" encoding="csharp" triggers="2">
 		</QAction>
-
-		<QAction id="3" name="Fill Streams Table" encoding="csharp" triggers="3">
+		
+		<QAction id="90" name="Fill Counter" encoding="csharp" triggers="90">
+		</QAction>
+		<QAction id="990" name="Fill Streams Table" encoding="csharp" triggers="990">
 		</QAction>
 	</QActions>
 
@@ -301,12 +412,21 @@ Any inquiries can be addressed to:
 				<Action>2</Action>
 			</Content>
 		</Group>
-		<Group id="3">
+
+		<Group id="90">
+			<Name>Fill Counter</Name>
+			<Description>Fill Counter</Description>
+			<Type>poll action</Type>
+			<Content>
+				<Action>90</Action>
+			</Content>
+		</Group>
+		<Group id="990">
 			<Name>Fill Streams</Name>
 			<Description>Fill Streams</Description>
 			<Type>poll action</Type>
 			<Content>
-				<Action>3</Action>
+				<Action>990</Action>
 			</Content>
 		</Group>
 	</Groups>
@@ -334,9 +454,15 @@ Any inquiries can be addressed to:
 			<On id="2">parameter</On>
 			<Type>run actions</Type>
 		</Action>
-		<Action id="3">
-			<Name>Run QA3</Name>
-			<On id="3">parameter</On>
+
+		<Action id="90">
+			<Name>Fill Counter</Name>
+			<On id="90">parameter</On>
+			<Type>run actions</Type>
+		</Action>
+		<Action id="990">
+			<Name>Fill Streams</Name>
+			<On id="990">parameter</On>
 			<Type>run actions</Type>
 		</Action>
 	</Actions>
@@ -347,7 +473,8 @@ Any inquiries can be addressed to:
 			<Time initial="true">10000</Time>
 			<Interval>75</Interval>
 			<Content>
-				<Group>3</Group>
+				<Group>90</Group>
+				<Group>990</Group>
 			</Content>
 		</Timer>
 	</Timers>

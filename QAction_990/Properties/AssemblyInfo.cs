@@ -1,11 +1,11 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("QAction_3")]
+[assembly: AssemblyTitle("QAction_990")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Skyline Communications")]
-[assembly: AssemblyProduct("QAction_3")]
+[assembly: AssemblyProduct("QAction_990")]
 [assembly: AssemblyCopyright("Copyright © Skyline Communications")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

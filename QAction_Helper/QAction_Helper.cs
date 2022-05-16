@@ -8,6 +8,21 @@ namespace Skyline.DataMiner.Scripting
 {
 public static class Parameter
 {
+	/// <summary>PID: 100 | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public const int counter_100 = 100;
+	/// <summary>PID: 100 | Type: read</summary>
+	public const int counter = 100;
+	/// <summary>PID: 101 | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public const int counterrateondates_101 = 101;
+	/// <summary>PID: 101 | Type: read</summary>
+	public const int counterrateondates = 101;
+	/// <summary>PID: 102 | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public const int counterrateondatesdata_102 = 102;
+	/// <summary>PID: 102 | Type: read</summary>
+	public const int counterrateondatesdata = 102;
 	public class Write
 	{
 	}
@@ -113,7 +128,14 @@ public interface SLProtocolExt : SLProtocol
 	/// <summary>PID: 1000</summary>
 	StreamsQActionTable streams { get; set; }
 	object Afterstartup_dummy { get; set; }
-	object Dummyforqa3_dummy { get; set; }
+	object Counterprocessingqaction_dummy { get; set; }
+	object Counter_100 { get; set; }
+	object Counter { get; set; }
+	object Counterrateondates_101 { get; set; }
+	object Counterrateondates { get; set; }
+	object Counterrateondatesdata_102 { get; set; }
+	object Counterrateondatesdata { get; set; }
+	object Streamsprocessingqaction_dummy { get; set; }
 	object Streamsindex_1001 { get; set; }
 	object Streamsindex { get; set; }
 	object Streamsdrescription_1002 { get; set; }
@@ -136,8 +158,25 @@ public class ConcreteSLProtocolExt : ConcreteSLProtocol, SLProtocolExt
 	public StreamsQActionTable streams { get; set; }
 	/// <summary>PID: 2  | Type: dummy</summary>
 	public System.Object Afterstartup_dummy {get { return GetParameter(2); }set { SetParameter(2, value); }}
-	/// <summary>PID: 3  | Type: dummy</summary>
-	public System.Object Dummyforqa3_dummy {get { return GetParameter(3); }set { SetParameter(3, value); }}
+	/// <summary>PID: 90  | Type: dummy</summary>
+	public System.Object Counterprocessingqaction_dummy {get { return GetParameter(90); }set { SetParameter(90, value); }}
+	/// <summary>PID: 100  | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public System.Object Counter_100 {get { return GetParameter(100); }set { SetParameter(100, value); }}
+	/// <summary>PID: 100  | Type: read</summary>
+	public System.Object Counter {get { return GetParameter(100); }set { SetParameter(100, value); }}
+	/// <summary>PID: 101  | Type: read | EXCEPTIONS: N/A = -1</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public System.Object Counterrateondates_101 {get { return GetParameter(101); }set { SetParameter(101, value); }}
+	/// <summary>PID: 101  | Type: read | EXCEPTIONS: N/A = -1</summary>
+	public System.Object Counterrateondates {get { return GetParameter(101); }set { SetParameter(101, value); }}
+	/// <summary>PID: 102  | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public System.Object Counterrateondatesdata_102 {get { return GetParameter(102); }set { SetParameter(102, value); }}
+	/// <summary>PID: 102  | Type: read</summary>
+	public System.Object Counterrateondatesdata {get { return GetParameter(102); }set { SetParameter(102, value); }}
+	/// <summary>PID: 990  | Type: dummy</summary>
+	public System.Object Streamsprocessingqaction_dummy {get { return GetParameter(990); }set { SetParameter(990, value); }}
 	/// <summary>PID: 1001  | Type: read</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public System.Object Streamsindex_1001 {get { return GetParameter(1001); }set { SetParameter(1001, value); }}
