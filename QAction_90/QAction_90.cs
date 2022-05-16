@@ -48,6 +48,6 @@ public static class QAction
 		UInt32 previousCounter = SafeConvert.ToUInt32(Convert.ToDouble(protocol.GetParameter(Parameter.counter)));
 		Random random = new Random();
 
-		return previousCounter + (UInt32)random.Next();
+		return previousCounter + (UInt32)random.Next(1000);
 	}
 }

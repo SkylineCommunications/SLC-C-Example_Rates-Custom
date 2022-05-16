@@ -94,7 +94,6 @@ Any inquiries can be addressed to:
 			<!-- /SuppressValidator 2.5.1 -->
 			<Display>
 				<RTDisplay>true</RTDisplay>
-				<Units>Octets</Units>
 				<Range>
 					<Low>0</Low>
 				</Range>
@@ -139,7 +138,6 @@ Any inquiries can be addressed to:
 				<Range>
 					<Low>0</Low>
 				</Range>
-				<Units>bps</Units>
 				<Positions>
 					<Position>
 						<Page>Standalone</Page>
