@@ -22,12 +22,17 @@ public static class QAction
 	{
 		try
 		{
-			UInt32 counter = SimulateCounter(protocol);
+			// Get new counter from data source
+			UInt32 counter = GetNewCounterFromDataSource(protocol);
 
+			// Get buffered data and make a helper instance from it
 			string bufferedData = Convert.ToString(protocol.GetParameter(Parameter.counterrateondatesdata));
 			Rate32OnDateTime rate32OnDatesHelper = Rate32OnDateTime.FromJsonString(bufferedData, minDelta, maxDelta);
+
+			// Calculate rate
 			double rate = rate32OnDatesHelper.Calculate(counter, DateTime.Now);
 
+			// Save results and buffered data
 			Dictionary<int, object> paramsToSet = new Dictionary<int, object>
 			{
 				{Parameter.counter, counter },
@@ -43,7 +48,12 @@ public static class QAction
 		}
 	}
 
-	public static UInt32 SimulateCounter(SLProtocol protocol)
+	/// <summary>
+	/// Simulates dynamic counters from data source.
+	/// </summary>
+	/// <param name="protocol">Link with SLProtocol process.</param>
+	/// <returns>The new value for the counter.</returns>
+	public static UInt32 GetNewCounterFromDataSource(SLProtocol protocol)
 	{
 		UInt32 previousCounter = SafeConvert.ToUInt32(Convert.ToDouble(protocol.GetParameter(Parameter.counter)));
 		Random random = new Random();
