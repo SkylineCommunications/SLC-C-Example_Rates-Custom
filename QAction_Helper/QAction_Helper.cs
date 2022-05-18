@@ -8,6 +8,11 @@ namespace Skyline.DataMiner.Scripting
 {
 public static class Parameter
 {
+	/// <summary>PID: 9 | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public const int readme_9 = 9;
+	/// <summary>PID: 9 | Type: read</summary>
+	public const int readme = 9;
 	/// <summary>PID: 100 | Type: read</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public const int counter_100 = 100;
@@ -128,6 +133,8 @@ public interface SLProtocolExt : SLProtocol
 	/// <summary>PID: 1000</summary>
 	StreamsQActionTable streams { get; set; }
 	object Afterstartup_dummy { get; set; }
+	object Readme_9 { get; set; }
+	object Readme { get; set; }
 	object Counterprocessingqaction_dummy { get; set; }
 	object Counter_100 { get; set; }
 	object Counter { get; set; }
@@ -158,6 +165,11 @@ public class ConcreteSLProtocolExt : ConcreteSLProtocol, SLProtocolExt
 	public StreamsQActionTable streams { get; set; }
 	/// <summary>PID: 2  | Type: dummy</summary>
 	public System.Object Afterstartup_dummy {get { return GetParameter(2); }set { SetParameter(2, value); }}
+	/// <summary>PID: 9  | Type: read</summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public System.Object Readme_9 {get { return GetParameter(9); }set { SetParameter(9, value); }}
+	/// <summary>PID: 9  | Type: read</summary>
+	public System.Object Readme {get { return GetParameter(9); }set { SetParameter(9, value); }}
 	/// <summary>PID: 90  | Type: dummy</summary>
 	public System.Object Counterprocessingqaction_dummy {get { return GetParameter(90); }set { SetParameter(90, value); }}
 	/// <summary>PID: 100  | Type: read</summary>

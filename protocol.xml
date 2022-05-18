@@ -55,7 +55,7 @@ Any inquiries can be addressed to:
 	<DeviceOID>998</DeviceOID>
 	<ElementType>Training Example</ElementType>
 	<Type relativeTimers="true">virtual</Type>
-	<Display defaultPage="Standalone" pageOrder="Standalone;Table" wideColumnPages="Table"/>
+	<Display defaultPage="General" pageOrder="General;Standalone;Table" wideColumnPages="General;Table"/>
 	<SNMP includepages="true">auto</SNMP>
 
 	<Compliancies>
@@ -68,6 +68,41 @@ Any inquiries can be addressed to:
 			<Name>afterStartup</Name>
 			<Description>After Startup</Description>
 			<Type>dummy</Type>
+		</Param>
+		
+		<Param id="9" trending="false">
+			<Name>ReadMe</Name>
+			<Description>Read Me</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>Description of this example protocol.</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+				<DefaultValue>
+					<![CDATA[
+This protocol demonstrates how to calculate rates based on counters polled by any means other than SNMP.
+
+- The 'Standalone' page contains a first example on how to calculate rates for standalone parameters which might be easier to have a first look at the rate calculation logic.
+- The 'Table' page contains a second example on how to calculate rates on tables.
+					]]>
+				</DefaultValue>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>General</Page>
+						<Column>0</Column>
+						<Row>0</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<Measurement>
+				<Type lines="10">string</Type>
+			</Measurement>
 		</Param>
 		
 		<Param id="90">
@@ -94,6 +129,7 @@ Any inquiries can be addressed to:
 			<!-- /SuppressValidator 2.5.1 -->
 			<Display>
 				<RTDisplay>true</RTDisplay>
+				<Units>Units</Units>
 				<Range>
 					<Low>0</Low>
 				</Range>
@@ -135,6 +171,7 @@ Any inquiries can be addressed to:
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Decimals>3</Decimals>
+				<Units>Units/s</Units>
 				<Range>
 					<Low>0</Low>
 				</Range>
