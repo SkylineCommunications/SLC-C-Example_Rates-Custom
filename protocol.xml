@@ -47,7 +47,7 @@ Any inquiries can be addressed to:
 <Protocol xmlns="http://www.skyline.be/protocol">
 	<Name>SLC SDF Rates - Custom</Name>
 	<Description>SLC SDF Rates - Custom DataMiner driver</Description>
-	<Version>1.0.1.2</Version>
+	<Version>1.0.1.1</Version>
 	<IntegrationID>DMS-DRV-0000</IntegrationID>
 	<Provider>Skyline Communications</Provider>
 	<Vendor>Skyline</Vendor>
@@ -561,20 +561,11 @@ This protocol demonstrates how to calculate rates based on counters polled by an
 										</Provider>
 										<Changes>
 											<Change>Updated to use Class Library NuGet</Change>
+											<NewFeature>Added rate calculation on standalone param which is even easier to read</NewFeature>
 										</Changes>
 										<References>
 											<TaskId>179881</TaskId>
 										</References>
-									</MinorVersion>
-									<MinorVersion id="2" basedOn="1.0.1.1">
-										<Date>2022-05-18</Date>
-										<Provider>
-											<Author>SVD</Author>
-											<Company>Skyline Communications</Company>
-										</Provider>
-										<Changes>
-											<NewFeature>Added rate calculation on standalone param which is even easier to read</NewFeature>
-										</Changes>
 									</MinorVersion>
 								</MinorVersions>
 							</MajorVersion>
