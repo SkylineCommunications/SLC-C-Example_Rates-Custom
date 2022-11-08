@@ -30,7 +30,7 @@ public static class QAction
 			Rate32OnDateTime rate32OnDatesHelper = Rate32OnDateTime.FromJsonString(bufferedData, minDelta, maxDelta);
 
 			// Calculate rate
-			double rate = rate32OnDatesHelper.Calculate(counter, DateTime.Now);
+			double rate = rate32OnDatesHelper.Calculate(counter, DateTime.UtcNow);
 
 			// Save results and buffered data
 			Dictionary<int, object> paramsToSet = new Dictionary<int, object>

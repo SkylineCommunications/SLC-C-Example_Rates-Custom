@@ -46,24 +46,6 @@
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="Interop.SLDms">
-      <HintPath>C:\Skyline DataMiner\ProtocolScripts\Interop.SLDms.dll</HintPath>
-    </Reference>
-    <Reference Include="SLManagedScripting">
-      <HintPath>C:\Skyline DataMiner\Files\SLManagedScripting.dll</HintPath>
-    </Reference>
-    <Reference Include="SLNetTypes">
-      <HintPath>C:\Skyline DataMiner\Files\SLNetTypes.dll</HintPath>
-    </Reference>
-    <Reference Include="QactionHelperBaseClasses">
-      <HintPath>C:\Skyline DataMiner\Files\QactionHelperBaseClasses.dll</HintPath>
-    </Reference>
-    <Reference Include="Skyline.DataMiner.Storage.Types">
-      <HintPath>C:\Skyline DataMiner\Files\Skyline.DataMiner.Storage.Types.dll</HintPath>
-    </Reference>
-    <Reference Include="SLLoggerUtil">
-      <HintPath>C:\Skyline DataMiner\Files\SLLoggerUtil.dll</HintPath>
-    </Reference>
     <ProjectReference Include="..\QAction_Helper\QAction_Helper.csproj">
       <Project>{4ADCD730-7A19-48C3-ABA3-BA8D2F356851}</Project>
       <Name>QAction_Helper</Name>
@@ -75,6 +57,9 @@
     <Compile Include="QAction_2.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Skyline.DataMiner.Dev.Protocol">
+      <Version>10.0.0.5</Version>
+    </PackageReference>
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.1.118</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -87,7 +72,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties DisLinkedXmlFile="..\protocol.xml" DisProjectType="qactionProject" DisLinkId="2" />
+      <UserProperties DisLinkId="2" DisProjectType="qactionProject" DisLinkedXmlFile="..\protocol.xml" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

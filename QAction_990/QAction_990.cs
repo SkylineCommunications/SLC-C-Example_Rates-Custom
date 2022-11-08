@@ -16,7 +16,7 @@ public static class QAction
 	{
 		try
 		{
-			DateTime now = DateTime.Now;
+			DateTime now = DateTime.UtcNow;
 
 			StreamsHelper streamsHelper = new StreamsHelper(protocol);
 			streamsHelper.ProcessData(now);
