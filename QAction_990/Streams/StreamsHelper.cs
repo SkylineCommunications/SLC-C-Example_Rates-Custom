@@ -91,7 +91,7 @@
 				var tableData = (object[])protocol.NotifyProtocol(321, Parameter.Streams.tablePid, columnsToGet);
 
 				Keys = (object[])tableData[0];
-				InOctets = BuildOctectsColumn((object[])tableData[1]);
+				InOctets = FakeNewOctetCounterValues((object[])tableData[1]);
 				InOctetsRateOnDatesData = (object[])tableData[2];
 				InOctetsRateOnTimesData = (object[])tableData[3];
 			}
@@ -101,7 +101,7 @@
 			/// </summary>
 			/// <param name="previous">Previous octets values used to calculate next ones.</param>
 			/// <returns>New octets values.</returns>
-			private static object[] BuildOctectsColumn(object[] previous)
+			private static object[] FakeNewOctetCounterValues(object[] previous)
 			{
 				Random random = new Random();
 				ulong[] predifined = new ulong[] { 48, 24, 96, 128, 246, 8 };
