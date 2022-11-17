@@ -35,9 +35,9 @@ public static class QAction
 			// Save results and buffered data
 			Dictionary<int, object> paramsToSet = new Dictionary<int, object>
 			{
-				{Parameter.counter, counter },
-				{Parameter.counterrateondates, rate },
-				{Parameter.counterrateondatesdata, rate32OnDatesHelper.ToJsonString() },
+				{ Parameter.counter, counter },
+				{ Parameter.counterrateondates, rate },
+				{ Parameter.counterrateondatesdata, rate32OnDatesHelper.ToJsonString() },
 			};
 
 			protocol.SetParameters(paramsToSet.Keys.ToArray(), paramsToSet.Values.ToArray());
