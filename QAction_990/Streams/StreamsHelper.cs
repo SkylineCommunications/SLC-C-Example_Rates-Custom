@@ -38,19 +38,26 @@
 
 		private void ProcessBitRates(int getPosition, DateTime now, TimeSpan minDelta, TimeSpan maxDelta)
 		{
-			ulong inOctets = SafeConvert.ToUInt64(Convert.ToDouble(getter.InOctets[getPosition]));
-			ulong inBytes = inOctets / 8;
+			ulong octetCount = SafeConvert.ToUInt64(Convert.ToDouble(getter.InOctets[getPosition]));
+			double octetRate;
+			double bitRate;
 
-			setter.SetColumnsData[Parameter.Streams.Pid.streamsoctetscounter].Add(inOctets);
+			setter.SetColumnsData[Parameter.Streams.Pid.streamsoctetscounter].Add(octetCount);
 
 			// Based on DateTime (typically used with HTTP, serial...)
 			Rate64OnDateTime rate64OnDatesHelper = Rate64OnDateTime.FromJsonString(Convert.ToString(getter.InOctetsRateOnDatesData[getPosition]), minDelta, maxDelta);
-			setter.SetColumnsData[Parameter.Streams.Pid.streamsbitrateondates].Add(rate64OnDatesHelper.Calculate(inBytes, now));
+			octetRate = rate64OnDatesHelper.Calculate(octetCount, now);
+			bitRate = octetRate * 8;
+
+			setter.SetColumnsData[Parameter.Streams.Pid.streamsbitrateondates].Add(bitRate);
 			setter.SetColumnsData[Parameter.Streams.Pid.streamsbitrateondatesdata].Add(rate64OnDatesHelper.ToJsonString());
 
 			// Based on TimeSpan (typically used with SNMP)
 			Rate64OnTimeSpan rate64OnTimesHelper = Rate64OnTimeSpan.FromJsonString(Convert.ToString(getter.InOctetsRateOnTimesData[getPosition]), minDelta, maxDelta);
-			setter.SetColumnsData[Parameter.Streams.Pid.streamsbitrateontimes].Add(rate64OnTimesHelper.Calculate(inBytes, new TimeSpan(0, 0, 10)));
+			octetRate = rate64OnTimesHelper.Calculate(octetCount, new TimeSpan(0, 0, 10));
+			bitRate = octetRate * 8;
+
+			setter.SetColumnsData[Parameter.Streams.Pid.streamsbitrateontimes].Add(bitRate);
 			setter.SetColumnsData[Parameter.Streams.Pid.streamsbitrateontimesdata].Add(rate64OnTimesHelper.ToJsonString());
 		}
 
@@ -73,13 +80,15 @@
 
 			internal void Load()
 			{
-				var tableData = (object[])protocol.NotifyProtocol(321, Parameter.Streams.tablePid, new uint[]
-					{
-						Parameter.Streams.Idx.streamsindex,
-						Parameter.Streams.Idx.streamsoctetscounter,
-						Parameter.Streams.Idx.streamsbitrateondatesdata,
-						Parameter.Streams.Idx.streamsbitrateontimesdata,
-					});
+				uint[] columnsToGet = new uint[]
+				{
+					Parameter.Streams.Idx.streamsindex,
+					Parameter.Streams.Idx.streamsoctetscounter,
+					Parameter.Streams.Idx.streamsbitrateondatesdata,
+					Parameter.Streams.Idx.streamsbitrateontimesdata,
+				};
+
+				var tableData = (object[])protocol.NotifyProtocol(321, Parameter.Streams.tablePid, columnsToGet);
 
 				Keys = (object[])tableData[0];
 				InOctets = BuildOctectsColumn((object[])tableData[1]);

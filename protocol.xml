@@ -575,6 +575,7 @@ This protocol demonstrates how to calculate rates based on counters polled by an
 										</Provider>
 										<Changes>
 											<Fix>Use of UTC time instead of local time for rate calculations</Fix>
+											<Fix>Conversion from octet to bit done on rate (after calculation) rather than on counter (before calculation) so that wraparounds are correctly handled by the RateHelper.</Fix>
 											<Change>Switching to DataMiner DevPacks</Change>
 										</Changes>
 									</MinorVersion>
