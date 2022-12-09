@@ -47,7 +47,7 @@
 			// Based on DateTime (typically used with HTTP, serial...)
 			Rate64OnDateTime rate64OnDatesHelper = Rate64OnDateTime.FromJsonString(Convert.ToString(getter.InOctetsRateOnDatesData[getPosition]), minDelta, maxDelta);
 			octetRate = rate64OnDatesHelper.Calculate(octetCount, now);
-			bitRate = octetRate * 8;
+			bitRate = octetRate > 0 ? octetRate * 8 : octetRate;
 
 			setter.SetColumnsData[Parameter.Streams.Pid.streamsbitrateondates].Add(bitRate);
 			setter.SetColumnsData[Parameter.Streams.Pid.streamsbitrateondatesdata].Add(rate64OnDatesHelper.ToJsonString());
@@ -55,7 +55,7 @@
 			// Based on TimeSpan (typically used with SNMP)
 			Rate64OnTimeSpan rate64OnTimesHelper = Rate64OnTimeSpan.FromJsonString(Convert.ToString(getter.InOctetsRateOnTimesData[getPosition]), minDelta, maxDelta);
 			octetRate = rate64OnTimesHelper.Calculate(octetCount, new TimeSpan(0, 0, 10));
-			bitRate = octetRate * 8;
+			bitRate = octetRate > 0 ? octetRate * 8 : octetRate;
 
 			setter.SetColumnsData[Parameter.Streams.Pid.streamsbitrateontimes].Add(bitRate);
 			setter.SetColumnsData[Parameter.Streams.Pid.streamsbitrateontimesdata].Add(rate64OnTimesHelper.ToJsonString());
