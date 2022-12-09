@@ -4,6 +4,7 @@ using System.Linq;
 
 using Skyline.DataMiner.Scripting;
 using Skyline.DataMiner.Utils.Rates.Common;
+using Skyline.DataMiner.Utils.SafeConverters;
 
 /// <summary>
 /// DataMiner QAction Class: Fill Counter.
