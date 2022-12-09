@@ -3,9 +3,9 @@
 	using System;
 	using System.Collections.Generic;
 
-	using Skyline.DataMiner.Library.Common.Rates;
-	using Skyline.DataMiner.Library.Common.SafeConverters;
 	using Skyline.DataMiner.Scripting;
+	using Skyline.DataMiner.Utils.Rates.Common;
+	using Skyline.DataMiner.Utils.SafeConverters;
 	using Skyline.Protocol.Extensions;
 
 	public class StreamsHelper
