@@ -2,7 +2,7 @@
 <!--
 
 ****************************************************************************
-*  Copyright (c) 2022,  Skyline Communications NV  All Rights Reserved.    *
+*  Copyright (c) 2023,  Skyline Communications NV  All Rights Reserved.    *
 ****************************************************************************
 
 By using this driver, you expressly agree with the usage terms and
@@ -47,7 +47,7 @@ Any inquiries can be addressed to:
 <Protocol xmlns="http://www.skyline.be/protocol">
 	<Name>SLC SDF Rates - Custom</Name>
 	<Description>SLC SDF Rates - Custom DataMiner driver</Description>
-	<Version>1.0.1.4</Version>
+	<Version>1.0.1.5</Version>
 	<IntegrationID>DMS-DRV-0000</IntegrationID>
 	<Provider>Skyline Communications</Provider>
 	<Vendor>Skyline</Vendor>
@@ -603,6 +603,19 @@ This protocol demonstrates how to calculate rates based on counters polled by an
 										</Provider>
 										<Changes>
 											<Change>Fixed bug when rates calculation would return N/A</Change>
+										</Changes>
+										<References>
+											<TaskId>198352</TaskId>
+										</References>
+									</MinorVersion>
+									<MinorVersion id="5" basedOn="1.0.1.4">
+										<Date>2023-04-12</Date>
+										<Provider>
+											<Author>SVD</Author>
+											<Company>Skyline Communications</Company>
+										</Provider>
+										<Changes>
+											<Change>Updated Utils NuGet packages.</Change>
 										</Changes>
 										<References>
 											<TaskId>198352</TaskId>
