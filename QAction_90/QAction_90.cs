@@ -23,7 +23,7 @@ public static class QAction
 		try
 		{
 			// Get new counter from data source
-			UInt32 counter = GetNewCounterFromDataSource(protocol);
+			uint counter = GetNewCounterFromDataSource(protocol);
 
 			// Get buffered data and make a helper instance from it
 			string bufferedData = Convert.ToString(protocol.GetParameter(Parameter.counterrateondatesdata));
@@ -44,7 +44,7 @@ public static class QAction
 		}
 		catch (Exception ex)
 		{
-			protocol.Log("QA" + protocol.QActionID + "|" + protocol.GetTriggerParameter() + "|Run|Exception thrown:" + Environment.NewLine + ex, LogType.Error, LogLevel.NoLogging);
+			protocol.Log($"QA{protocol.QActionID}|{protocol.GetTriggerParameter()}|Run|Exception thrown:{Environment.NewLine}{ex}", LogType.Error, LogLevel.NoLogging);
 		}
 	}
 
@@ -53,11 +53,11 @@ public static class QAction
 	/// </summary>
 	/// <param name="protocol">Link with SLProtocol process.</param>
 	/// <returns>The new value for the counter.</returns>
-	public static UInt32 GetNewCounterFromDataSource(SLProtocol protocol)
+	public static uint GetNewCounterFromDataSource(SLProtocol protocol)
 	{
-		UInt32 previousCounter = SafeConvert.ToUInt32(Convert.ToDouble(protocol.GetParameter(Parameter.counter)));
+		uint previousCounter = SafeConvert.ToUInt32(Convert.ToDouble(protocol.GetParameter(Parameter.counter)));
 		Random random = new Random();
 
-		return previousCounter + (UInt32)random.Next(1000);
+		return previousCounter + (uint)random.Next(1000);
 	}
 }
