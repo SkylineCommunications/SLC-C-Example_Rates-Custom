@@ -2,7 +2,7 @@
 <!--
 
 ****************************************************************************
-*  Copyright (c) 2023,  Skyline Communications NV  All Rights Reserved.    *
+*  Copyright (c) 2024,  Skyline Communications NV  All Rights Reserved.    *
 ****************************************************************************
 
 By using this driver, you expressly agree with the usage terms and
@@ -45,15 +45,15 @@ Any inquiries can be addressed to:
 -->
 
 <Protocol xmlns="http://www.skyline.be/protocol">
-	<Name>SLC SDF Rates - Custom</Name>
+	<Name>Skyline Example Rates Custom</Name>
 	<Description>SLC SDF Rates - Custom DataMiner driver</Description>
 	<Version>1.0.1.5</Version>
-	<IntegrationID>DMS-DRV-0000</IntegrationID>
+	<IntegrationID>DMS-DRV-9034</IntegrationID>
 	<Provider>Skyline Communications</Provider>
-	<Vendor>Skyline</Vendor>
-	<VendorOID>1.3.6.1.4.1.8813.2.48</VendorOID>
-	<DeviceOID>998</DeviceOID>
-	<ElementType>Training Example</ElementType>
+	<Vendor>Skyline Example</Vendor>
+	<VendorOID>1.3.6.1.4.1.8813.2.1218</VendorOID>
+	<DeviceOID>11</DeviceOID>
+	<ElementType>Example</ElementType>
 	<Type relativeTimers="true">virtual</Type>
 	<Display defaultPage="General" pageOrder="General;Standalone;Table" wideColumnPages="General;Table"/>
 	<SNMP includepages="true">auto</SNMP>
