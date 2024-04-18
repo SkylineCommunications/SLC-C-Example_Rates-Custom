@@ -32,8 +32,8 @@
 			var tableData = (object[])protocol.NotifyProtocol(321, Parameter.Streams.tablePid, columnsToGet);
 
 			Keys = (object[])tableData[0];
-			InOctetsRateOnDatesData = (object[])tableData[2];
-			InOctetsRateOnTimesData = (object[])tableData[3];
+			InOctetsRateOnDatesData = (object[])tableData[1];
+			InOctetsRateOnTimesData = (object[])tableData[2];
 		}
 	}
 }
