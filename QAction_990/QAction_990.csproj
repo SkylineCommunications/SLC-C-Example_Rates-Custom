@@ -8,7 +8,7 @@
     <ProjectGuid>{A65D2741-2DA1-467B-97A4-933E4DDC65A5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>QAction_990</RootNamespace>
+    <RootNamespace>Skyline.Protocol</RootNamespace>
     <AssemblyName>QAction_990</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -57,9 +57,12 @@
     <Content Include=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Streams\PollingSimulator.cs" />
+    <Compile Include="Streams\StreamsGetter.cs" />
     <Compile Include="Streams\StreamsHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QAction_990.cs" />
+    <Compile Include="Streams\StreamsSetter.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Skyline.DataMiner.Dev.Protocol">
@@ -83,7 +86,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties DisLinkedXmlFile="C:\GIT\Examples\Protocols\SDF\SLC SDF Rates - Custom\protocol.xml" DisProjectType="qactionProject" DisLinkId="990" />
+      <UserProperties DisLinkId="990" DisProjectType="qactionProject" DisLinkedXmlFile="C:\GIT\Examples\Protocols\SDF\SLC SDF Rates - Custom\protocol.xml" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

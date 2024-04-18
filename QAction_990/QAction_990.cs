@@ -18,8 +18,10 @@ public static class QAction
 		{
 			DateTime now = DateTime.UtcNow;
 
-			StreamsHelper streamsHelper = new StreamsHelper(protocol);
-			streamsHelper.ProcessData(now);
+			StreamsHelper streamsHelper = new StreamsHelper(protocol, now);
+			streamsHelper.GetPreviousData();
+			streamsHelper.PollDataFromDevice();
+			streamsHelper.ProcessData();
 			streamsHelper.UpdateProtocol();
 		}
 		catch (Exception ex)
