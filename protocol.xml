@@ -427,15 +427,14 @@ This protocol demonstrates how to calculate rates based on counters polled by an
 	</Params>
 
 	<QActions>
-		<QAction id="1" name="Precompiled Code" encoding="csharp" options="precompile">
-		</QAction>
-		<QAction id="2" name="After Startup" encoding="csharp" triggers="2">
-		</QAction>
+		<QAction id="1" name="Precompiled Code" encoding="csharp" options="precompile" />
+		<QAction id="2" name="After Startup" encoding="csharp" triggers="2" />
 		
-		<QAction id="90" name="Fill Counter" encoding="csharp" triggers="90">
-		</QAction>
-		<QAction id="990" name="Fill Streams Table" encoding="csharp" triggers="990">
-		</QAction>
+		<!--Standalone Rate-->
+		<QAction id="90" name="Fill Counter" encoding="csharp" triggers="90" />
+		
+		<!--Table Rates-->
+		<QAction id="990" name="Fill Streams Table" encoding="csharp" triggers="990" />
 	</QActions>
 
 	<Groups>
