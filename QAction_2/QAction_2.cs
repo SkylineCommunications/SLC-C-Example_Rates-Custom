@@ -25,7 +25,7 @@ public static class QAction
 	}
 
 	/// <summary>
-	/// Create the Rows on Table.
+	/// Initialize Rows on Streams Table.
 	/// </summary>
 	/// <param name="protocol">Link with SLProtocol process.</param>
 	private static void InitializeStreamRows(SLProtocol protocol)
