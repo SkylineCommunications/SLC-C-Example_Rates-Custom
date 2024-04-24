@@ -16,11 +16,7 @@ public static class QAction
 	{
 		try
 		{
-			object[] streamKeys = (object[])((object[])protocol.NotifyProtocol(321, Parameter.Streams.tablePid, new uint[] { 0 }))[0];
-			if (streamKeys == null || streamKeys.Length == 0)
-			{
-				CreateRows(protocol);
-			}
+			CreateStreamRows(protocol);
 		}
 		catch (Exception ex)
 		{
@@ -32,7 +28,7 @@ public static class QAction
 	/// Create the Rows on Table.
 	/// </summary>
 	/// <param name="protocol">Link with SLProtocol process.</param>
-	private static void CreateRows(SLProtocol protocol)
+	private static void CreateStreamRows(SLProtocol protocol)
 	{
 		var rows = new List<object[]>
 		{
