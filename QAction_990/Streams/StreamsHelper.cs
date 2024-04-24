@@ -16,7 +16,7 @@
 
 		private readonly PollingSimulator pollingSimulator;
 
-		private readonly TimeSpan minDelta = new TimeSpan(0, 1, 0);
+		private readonly TimeSpan minDelta = new TimeSpan(0, 0, 20);
 		private readonly TimeSpan maxDelta = new TimeSpan(0, 10, 0);
 
 		internal StreamsHelper(SLProtocol protocol, DateTime now)
