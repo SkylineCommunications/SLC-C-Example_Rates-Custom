@@ -16,7 +16,7 @@ public static class QAction
 	{
 		try
 		{
-			CreateStreamRows(protocol);
+			InitializeStreamRows(protocol);
 		}
 		catch (Exception ex)
 		{
@@ -28,7 +28,7 @@ public static class QAction
 	/// Create the Rows on Table.
 	/// </summary>
 	/// <param name="protocol">Link with SLProtocol process.</param>
-	private static void CreateStreamRows(SLProtocol protocol)
+	private static void InitializeStreamRows(SLProtocol protocol)
 	{
 		var rows = new List<object[]>
 		{
