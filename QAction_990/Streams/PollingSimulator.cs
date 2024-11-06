@@ -4,6 +4,7 @@
 	using System.Collections.Generic;
 
 	using Skyline.DataMiner.Scripting;
+	using Skyline.Protocol.Extension;
 
 	internal class PollingSimulator
 	{
@@ -26,7 +27,7 @@
 				Parameter.Streams.Idx.streamsoctetscounter,
 			};
 
-			var tableData = (object[])protocol.NotifyProtocol(321, Parameter.Streams.tablePid, columnsToGet);
+			var tableData = protocol.GetColumns(Parameter.Streams.tablePid, columnsToGet);
 
 			Keys = (object[])tableData[0];
 			InOctets = FakeNewOctetCounterValues((object[])tableData[1]);

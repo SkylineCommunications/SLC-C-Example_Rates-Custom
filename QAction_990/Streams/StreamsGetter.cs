@@ -1,9 +1,9 @@
 ﻿namespace Skyline.Protocol.Streams
 {
 	using System;
-	using System.Collections.Generic;
 
 	using Skyline.DataMiner.Scripting;
+	using Skyline.Protocol.Extension;
 
 	internal class StreamsGetter
 	{
@@ -29,7 +29,7 @@
 				Parameter.Streams.Idx.streamsbitrateontimesdata,
 			};
 
-			var tableData = (object[])protocol.NotifyProtocol(321, Parameter.Streams.tablePid, columnsToGet);
+			var tableData = protocol.GetColumns(Parameter.Streams.tablePid, columnsToGet);
 
 			Keys = (object[])tableData[0];
 			InOctetsRateOnDatesData = (object[])tableData[1];

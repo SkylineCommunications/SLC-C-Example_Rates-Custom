@@ -47,7 +47,7 @@ Any inquiries can be addressed to:
 <Protocol xmlns="http://www.skyline.be/protocol">
 	<Name>Skyline Example Rates Custom</Name>
 	<Description>Skyline Example - Custom Rates DataMiner connector</Description>
-	<Version>1.0.1.6</Version>
+	<Version>1.0.1.7</Version>
 	<IntegrationID>DMS-DRV-9034</IntegrationID>
 	<Provider>Skyline Communications</Provider>
 	<Vendor>Skyline Example</Vendor>
@@ -629,6 +629,19 @@ This protocol demonstrates how to calculate rates based on counters polled by an
 										<Changes>
 											<Change>Re-factored code for easier understanding.</Change>
 											<Change>No more saving rates data parameters as it should only be saved if the use-case really requires it.</Change>
+										</Changes>
+										<References>
+											<TaskId>198352</TaskId>
+										</References>
+									</MinorVersion>
+									<MinorVersion id="7" basedOn="1.0.1.6">
+										<Date>2024-11-06</Date>
+										<Provider>
+											<Author>SVD</Author>
+											<Company>Skyline Communications</Company>
+										</Provider>
+										<Changes>
+											<Change>Improved ProtocolExtensions.</Change>
 										</Changes>
 										<References>
 											<TaskId>198352</TaskId>

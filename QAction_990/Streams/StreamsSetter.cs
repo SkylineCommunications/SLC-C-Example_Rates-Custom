@@ -4,7 +4,7 @@
 	using System.Collections.Generic;
 
 	using Skyline.DataMiner.Scripting;
-	using Skyline.Protocol.Extensions;
+	using Skyline.Protocol.Extension;
 
 	internal class StreamsSetter
 	{
@@ -15,7 +15,7 @@
 			this.protocol = protocol ?? throw new ArgumentNullException(nameof(protocol));
 		}
 
-		internal Dictionary<object, List<object>> SetColumnsData { get; } = new Dictionary<object, List<object>>
+		internal Dictionary<int, List<object>> SetColumnsData { get; } = new Dictionary<int, List<object>>
 		{
 			{ Parameter.Streams.tablePid, new List<object>() },
 			{ Parameter.Streams.Pid.streamsoctetscounter, new List<object>() },
