@@ -4,7 +4,7 @@
 	using System.Collections.Generic;
 
 	using Skyline.DataMiner.Scripting;
-	using Skyline.Protocol.Extension;
+	using Skyline.DataMiner.Utils.Protocol.Extension;
 
 	internal class PollingSimulator
 	{
