@@ -634,13 +634,13 @@ This protocol demonstrates how to calculate rates based on counters polled by an
 										</References>
 									</MinorVersion>
 									<MinorVersion id="7" basedOn="1.0.1.6">
-										<Date>2024-11-06</Date>
+										<Date>2024-11-29</Date>
 										<Provider>
 											<Author>SVD</Author>
 											<Company>Skyline Communications</Company>
 										</Provider>
 										<Changes>
-											<Change>Improved ProtocolExtensions.</Change>
+											<Change>Move to ProtocolExtensions NuGet package.</Change>
 										</Changes>
 										<References>
 											<TaskId>198352</TaskId>
