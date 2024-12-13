@@ -1,3 +1,6 @@
+# WARNING! DO NOT CHANGE THIS FILE.
+# If you wish to make adjustments based on the `auto-generated-catalog.yml` file, you can do so by creating a `catalog.yml` file in the root of your repository.
+# 
 # [Required]
 # Possible values for the Catalog item that can be deployed on a DataMiner System:
 #   - automationscript: If the Catalog item is a general-purpose DataMiner Automation script.
@@ -30,14 +33,14 @@ type: connector
 # If the ID is filled in but does not exist yet, a new Catalog item will be registered with this ID.
 # If the ID is filled in but does exist, properties of the item will be overwritten.
 #   Must be a valid GUID.
-id: bd1743de-ac8e-4e9e-9c23-835ba1b2c0d4
+id: 3f4d163f-e335-4923-967b-ec9ff72fde19
 # [Required]
 # The human-friendly name of the Catalog item.
 # Can be changed at any time.
 #   Max length: 100 characters.
 #   Cannot contain newlines.
 #   Cannot contain leading or trailing whitespace characters.
-title: Example Rates-Custom
+title: Skyline Example - Rates Custom
 # [Optional]
 # General information about the Catalog item.
 #   Max length: 100,000 characters
@@ -59,7 +62,10 @@ documentation_url:
 # Format: 'name <email> (url)'
 #   The name is required; max 256 characters.
 #   The email and url are optional, and should be in valid email/URL formats.
-owners: []
+owners:
+  - email: simon.vandamme@skyline.be
+    name: Simon Vandamme
+    url: 
 # [Optional]
 # Tags that allow you to categorize your Catalog items.
 #   Max number of tags: 5
