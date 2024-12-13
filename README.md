@@ -1,0 +1,5 @@
+# Skyline Example - Rates Custom
+
+This repository serves as a guide on developing some rate calculations.
+Note when rates need to be calculated from counters coming from SNMP polling, [Skyline Example - Rates SNMP](https://catalog.dataminer.services/details/944868b5-583e-476d-aa13-552fa876da5d) should be used.
+For any other rates calculation, this Skyline Example - Rates Custom should be used.
