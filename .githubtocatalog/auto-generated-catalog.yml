@@ -73,6 +73,7 @@ owners:
 #   Cannot contain newlines.
 #   Cannot contain leading or trailing whitespace characters.
 tags:
+  - test
   - dataminer
   - dataminer-connector
   - example
