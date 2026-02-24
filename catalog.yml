@@ -57,5 +57,5 @@ owners:
 #   Cannot contain newlines.
 #   Cannot contain leading or trailing whitespace characters.
 tags:
-  - connector
-  - bitrates
+  - Connector Example
+  - Bitrates
